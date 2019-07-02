@@ -6,6 +6,7 @@
 <head runat="server">
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <title>Admin page</title>
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -55,5 +56,8 @@
             </footer>
         </div>
     </form>
+    <script src="../Scripts/jquery-3.3.1.min.js"></script>
+    <script src="../Scripts/jquery.validate.js"></script>
+    <script src="../Scripts/bootstrap.js"></script>
 </body>
 </html>
