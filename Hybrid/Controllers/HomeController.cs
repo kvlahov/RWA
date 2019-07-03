@@ -11,6 +11,10 @@ namespace Hybrid.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
+            if (User.IsInRole("User"))
+            {
+                return RedirectToAction("Index", "Menu");
+            }
             return View();
         }
 

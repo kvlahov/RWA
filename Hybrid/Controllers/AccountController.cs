@@ -58,6 +58,10 @@ namespace Hybrid.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
+            if(User.IsInRole("User"))
+            {
+                return RedirectToAction("Index", "Menu");
+            }
             return View();
         }
 
