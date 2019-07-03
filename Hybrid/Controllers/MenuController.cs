@@ -6,13 +6,17 @@ using System.Web.Mvc;
 
 namespace Hybrid.Controllers
 {
-    public class HomeController : Controller
+    public class MenuController : Controller
     {
-        [AllowAnonymous]
+        // GET: Menu
         public ActionResult Index()
         {
             return View();
         }
 
+        public ActionResult Generate()
+        {
+            return View();
+        }
     }
 }

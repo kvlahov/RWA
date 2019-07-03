@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Home";
+    var name = "Kreso";
+    var hasMenu = true;
+}
+
+<h2>Welcome, @name!</h2>
+
+@if(hasMenu)
+{
+    <p>You do not have any menus generated for today</p>
+    @Html.ActionLink("Generate", "Generate", "Menu", new { @class = "btn btn-primary" })
+}
+

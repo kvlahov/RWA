@@ -84,7 +84,7 @@ namespace Hybrid.Controllers
 
                     if (roles.Contains("User"))
                     {
-                        return RedirectToLocal(returnUrl);
+                        return RedirectToAction("Index", "Menu");
 
                     }
                     else if (roles.Contains("Admin"))
