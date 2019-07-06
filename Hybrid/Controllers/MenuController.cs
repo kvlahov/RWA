@@ -14,7 +14,7 @@ namespace Hybrid.Controllers
     [SetupRedirectFilter]
     public class MenuController : Controller
     {
-        private IRepository repo = RepoFactory.GetRepository();
+        private readonly IRepository repo = RepoFactory.GetRepository();
         // GET: Menu
         public ActionResult Index()
         {
@@ -28,14 +28,19 @@ namespace Hybrid.Controllers
         }
 
         [HttpGet]
-        ActionResult SetupUser()
+        public ActionResult SetupUser()
         {
+            //if user types direct url redirect
+            if(repo.isUserSetup(User.Identity.GetUserId()))
+            {
+                return RedirectToAction("Index");
+            }
             ViewBag.activity = repo.GetLvlsOfActivity();
             return View();
         }
 
         [HttpPost]
-        ActionResult SetupUser(User user)
+        public ActionResult SetupUser(User user)
         {
             user.EntityID = User.Identity.GetUserId();
             if (ModelState.IsValid)

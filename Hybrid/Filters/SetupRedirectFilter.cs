@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace Hybrid.Filters
 {
@@ -14,8 +15,23 @@ namespace Hybrid.Filters
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var repo = RepoFactory.GetRepository();
-            var uid = filterContext.HttpContext.User.Identity.GetUserId();
-            Log(filterContext.ActionDescriptor.ActionName, repo.isUserSetup(uid), uid);
+            var user = filterContext.HttpContext.User;
+            if (filterContext.ActionDescriptor.ActionName != "SetupUser")
+            {
+                if(user.IsInRole("User"))
+                {
+                    if(!repo.isUserSetup(user.Identity.GetUserId()))
+                    {
+                        filterContext.Result = new RedirectToRouteResult(
+                            new RouteValueDictionary
+                            {
+                                {"controller", "Menu" },
+                                {"action", "SetupUser" }
+                            });
+                    }
+                }
+            }
+
             base.OnActionExecuting(filterContext);
         }
 
