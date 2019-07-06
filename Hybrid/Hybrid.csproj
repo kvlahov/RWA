@@ -191,6 +191,7 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Filters\SetupRedirectFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -198,11 +199,11 @@
     <Compile Include="Models\DAL\IRepository.cs" />
     <Compile Include="Models\DAL\RepoFactory.cs" />
     <Compile Include="Models\DAL\SQLRepo.cs" />
-    <Compile Include="Models\Enums\LevelOfActivity.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Ingredient.cs" />
     <Compile Include="Models\Enums\IngredientType.cs" />
     <Compile Include="Models\IngredientEnergy.cs" />
+    <Compile Include="Models\LevelOfActivity.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Menu.cs" />
     <Compile Include="Models\UnitOfMesurement.cs" />
@@ -374,6 +375,9 @@
     <Content Include="Views\Shared\_LandingLayout.cshtml" />
     <Content Include="Views\Menu\Index.cshtml" />
     <Content Include="Views\Menu\Generate.cshtml" />
+    <Content Include="Views\Menu\_Meal.cshtml" />
+    <Content Include="Views\Menu\SetupUser.cshtml" />
+    <Content Include="Views\Menu\UserInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

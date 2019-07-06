@@ -16,6 +16,10 @@ namespace Hybrid.Models.DAL
         IList<string> GetMealNames(int noOfMeals);
         Ingredient GetRandomIngredient(int typeId);
         IDictionary<string, int> GetAllIngredientTypes();
+        bool isUserSetup(string entityID);
+        IList<LevelOfActivity> GetLvlsOfActivity();
+
+        User GetUser(string entityID);
 
     }
 }
