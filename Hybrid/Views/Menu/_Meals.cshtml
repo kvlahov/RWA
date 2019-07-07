@@ -1,0 +1,46 @@
+﻿@using Hybrid.Models
+@model Dictionary<string, List<Ingredient>>
+
+@{
+    var mealType = new Dictionary<int, string>
+{
+        {1, "Ugljikohidrati" },
+        {2, "Proteini" },
+        {3, "Masti" },
+
+    };
+}
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Meal</th>
+            <th scope="col">Ingredient</th>
+            <th scope="col">Type</th>
+            <th scope="col">Unit of Mesurement</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var mealName in Model.Keys)
+        {
+            <tr>
+                <th rowspan="3" style="vertical-align:middle !important" scope="row">1</th>
+                <td rowspan="3" style="vertical-align:middle !important">@mealName</td>
+                <td>@Model[mealName][0].Name</td>
+                <td>@mealType[Model[mealName][0].TypeId]</td>
+                <td>100 g</td>
+            </tr>
+
+            for (int j = 1; j <= 2; i++)
+            {
+                <tr>
+                    <td>@Model[mealName][j].Name</td>
+                    <td>@mealType[Model[mealName][j].TypeId]</td>
+                    <td>100 g</td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>

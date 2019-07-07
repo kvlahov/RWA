@@ -27,11 +27,27 @@ namespace Hybrid.Controllers
             return View(repo.GetMealNames(3).ToList());
         }
 
+        public ActionResult GenerateMeals(int noOfMeals)
+        {
+            var names = repo.GetMealNames(noOfMeals);
+
+            Dictionary<string, List<Ingredient>> meal = new Dictionary<string, List<Ingredient>>();
+            names.ToList()
+                .ForEach(n => meal.Add(
+                    n,
+                    new List<Ingredient> {
+                        repo.GetRandomIngredient(1),
+                        repo.GetRandomIngredient(2),
+                        repo.GetRandomIngredient(3)
+                    }));
+            return PartialView("_Meals", meal);
+        }
+
         [HttpGet]
         public ActionResult SetupUser()
         {
             //if user types direct url redirect
-            if(repo.isUserSetup(User.Identity.GetUserId()))
+            if (repo.isUserSetup(User.Identity.GetUserId()))
             {
                 return RedirectToAction("Index");
             }
@@ -58,6 +74,6 @@ namespace Hybrid.Controllers
             var user = repo.GetUser(User.Identity.GetUserId());
             ViewBag.activity = repo.GetLvlsOfActivity().Where(x => x.Id == user.LevelOfActivityID).First();
             return View(user);
-        } 
+        }
     }
 }

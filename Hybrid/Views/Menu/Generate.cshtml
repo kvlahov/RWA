@@ -26,11 +26,10 @@
                 <label for="noMeals" class="col-sm-3 control-label">Number of Meals</label>
                 <div class="col-sm-9">
                     <select id="noMeals" class="form-control">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                        @for (int i = 1; i < 11; i++)
+                        {
+                            <option>@i</option>
+                        }
                     </select>
                 </div>
             </div>
@@ -48,19 +47,19 @@
 
                             <li>
                                 <label>
-                                    <input type="checkbox"> Meal 1
+                                    <input type="checkbox"> Ingredient 1
                                 </label>
                             </li>
 
                             <li>
                                 <label>
-                                    <input type="checkbox"> Meal 2
+                                    <input type="checkbox"> Ingredient 2
                                 </label>
                             </li>
 
                             <li>
                                 <label>
-                                    <input type="checkbox"> Meal 3
+                                    <input type="checkbox"> Ingredient 3
                                 </label>
                             </li>
 
@@ -77,16 +76,13 @@
             <div class="form-group">
                 <div class="col-md-offset-3 col-md-9">
                     <button class="btn btn-primary" id="btnGenerate">Generate</button>
+                    <button class="btn btn-success" style="display:none" id="btnSave">Save</button>
                 </div>
             </div>
         </form>
     </div>
-</div>
-<div id="meals" style="display:none;">
-    @for (int i = 0; i < 5; i++)
-    {
-        @Html.Partial("_Meal")
-    }
+    <div id="meals">
+    </div>
 </div>
 
 @section scripts {
@@ -113,7 +109,20 @@
 
         $('#btnGenerate').click((e) => {
             e.preventDefault();
-            $('#meals').show(500);
+            $('#meals').hide();
+            $('#btnSave').fadeOut(200);
+            $.ajax({
+                    url: '@Url.Action("GenerateMeals")',
+                    method: 'GET',
+                    cache: false,
+                    dataType: 'html',
+                    data: { noOfMeals: $('#noMeals').val()},
+                    success: function (partialView) {
+                        $("#meals").html(partialView).fadeIn(800);
+                        $('#btnSave').fadeIn(100);
+                    }
+            })
+            
         });
     </script>
 }

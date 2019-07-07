@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -378,6 +379,7 @@
     <Content Include="Views\Menu\_Meal.cshtml" />
     <Content Include="Views\Menu\SetupUser.cshtml" />
     <Content Include="Views\Menu\UserInfo.cshtml" />
+    <Content Include="Views\Menu\_Meals.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
