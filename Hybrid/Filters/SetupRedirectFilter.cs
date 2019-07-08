@@ -25,7 +25,7 @@ namespace Hybrid.Filters
                         filterContext.Result = new RedirectToRouteResult(
                             new RouteValueDictionary
                             {
-                                {"controller", "Menu" },
+                                {"controller", "User" },
                                 {"action", "SetupUser" }
                             });
                     }

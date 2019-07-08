@@ -1,5 +1,5 @@
 ﻿@using Hybrid.Models
-@model Dictionary<string, List<Ingredient>>
+@model MenuViewModel
 
 @{
     var mealType = new Dictionary<int, string>
@@ -11,7 +11,7 @@
     };
 }
 
-<table class="table">
+<table class="table table-bordered table-hover">
     <thead class="thead-dark">
         <tr>
             <th scope="col">#</th>
@@ -22,24 +22,27 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var mealName in Model.Keys)
+        @{var i = 1; }
+        @foreach (var meal in Model.Meals)
         {
+            
             <tr>
-                <th rowspan="3" style="vertical-align:middle !important" scope="row">1</th>
-                <td rowspan="3" style="vertical-align:middle !important">@mealName</td>
-                <td>@Model[mealName][0].Name</td>
-                <td>@mealType[Model[mealName][0].TypeId]</td>
-                <td>100 g</td>
+                <th rowspan="3" style="vertical-align:middle !important" scope="row">@i</th>
+                <td rowspan="3" style="vertical-align:middle !important">@meal.Name</td>
+                <td>@meal.IngredientEnergy.Keys.First().Name</td>
+                <td>@mealType[meal.IngredientEnergy.Keys.First().TypeId]</td>
+                <td>@meal.IngredientEnergy.Values.First().First().Value g</td>
             </tr>
 
-            for (int j = 1; j <= 2; i++)
+            for (int j = 1; j <= 2; j++)
             {
                 <tr>
-                    <td>@Model[mealName][j].Name</td>
-                    <td>@mealType[Model[mealName][j].TypeId]</td>
-                    <td>100 g</td>
+                    <td>@meal.IngredientEnergy.Keys.ToArray()[j].Name</td>
+                    <td>@mealType[meal.IngredientEnergy.Keys.ToArray()[j].TypeId]</td>
+                    <td>@meal.IngredientEnergy.Values.ToArray()[j].First().Value g</td>
                 </tr>
             }
+            i++;
         }
 
     </tbody>

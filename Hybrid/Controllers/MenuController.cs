@@ -4,24 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Hybrid.Models;
-using Hybrid.Filters;
-using System.Diagnostics;
 
 namespace Hybrid.Controllers
 {
-    [SetupRedirectFilter]
     public class MenuController : Controller
     {
-        private readonly IRepository repo = RepoFactory.GetRepository();
-        // GET: Menu
-        public ActionResult Index()
-        {
-            ViewBag.userName = repo.GetUser(User.Identity.GetUserId()).Name;
-            return View();
-        }
-
+        IRepository repo = RepoFactory.GetRepository();
         public ActionResult Generate()
         {
             return View(repo.GetMealNames(3).ToList());
@@ -29,51 +17,7 @@ namespace Hybrid.Controllers
 
         public ActionResult GenerateMeals(int noOfMeals)
         {
-            var names = repo.GetMealNames(noOfMeals);
-
-            Dictionary<string, List<Ingredient>> meal = new Dictionary<string, List<Ingredient>>();
-            names.ToList()
-                .ForEach(n => meal.Add(
-                    n,
-                    new List<Ingredient> {
-                        repo.GetRandomIngredient(1),
-                        repo.GetRandomIngredient(2),
-                        repo.GetRandomIngredient(3)
-                    }));
-            return PartialView("_Meals", meal);
-        }
-
-        [HttpGet]
-        public ActionResult SetupUser()
-        {
-            //if user types direct url redirect
-            if (repo.isUserSetup(User.Identity.GetUserId()))
-            {
-                return RedirectToAction("Index");
-            }
-            ViewBag.activity = repo.GetLvlsOfActivity();
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult SetupUser(User user)
-        {
-            user.EntityID = User.Identity.GetUserId();
-            if (ModelState.IsValid)
-            {
-                repo.InsertUser(user);
-                return RedirectToAction("Index", "Menu");
-            }
-            ViewBag.activity = repo.GetLvlsOfActivity();
-            return View();
-
-        }
-
-        public ActionResult UserInfo()
-        {
-            var user = repo.GetUser(User.Identity.GetUserId());
-            ViewBag.activity = repo.GetLvlsOfActivity().Where(x => x.Id == user.LevelOfActivityID).First();
-            return View(user);
+            return PartialView("_Meals", menu);
         }
     }
 }

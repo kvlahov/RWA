@@ -5,11 +5,10 @@ using System.Web;
 
 namespace Hybrid.Models
 {
-    public class IngredientEnergy
+    public class UnitEnergy
     {
-        public Ingredient Ingredient { get; set; }
         public UnitOfMesurement Unit { get; set; }
-        public float Energy { get; set; }
+        public float Kcal { get; set; }
         public float Value { get; set; }
     }
 }

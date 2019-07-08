@@ -60,7 +60,7 @@ namespace Hybrid.Controllers
             ViewBag.ReturnUrl = returnUrl;
             if(User.IsInRole("User"))
             {
-                return RedirectToAction("Index", "Menu");
+                return RedirectToAction("Index", "User");
             }
             return View();
         }
@@ -88,7 +88,7 @@ namespace Hybrid.Controllers
 
                     if (roles.Contains("User"))
                     {
-                        return RedirectToAction("Index", "Menu");
+                        return RedirectToAction("Index", "User");
 
                     }
                     else if (roles.Contains("Admin"))
@@ -185,7 +185,7 @@ namespace Hybrid.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
                     
-                    return RedirectToAction("Index", "Menu");
+                    return RedirectToAction("Index", "User");
                 }
                 AddErrors(result);
             }

@@ -44,10 +44,10 @@ namespace Hybrid.Models.DAL
             throw new NotImplementedException();
         }
 
-        public IList<IngredientEnergy> GetUnitsOfMesurement(int ingredientId)
+        public IList<UnitEnergy> GetUnitsOfMesurement(int ingredientId)
         {
             ds = SqlHelper.ExecuteDataset(cs, "getUnitsOfMesurementForIngredient", ingredientId);
-            IList<IngredientEnergy> units = new List<IngredientEnergy>();
+            IList<UnitEnergy> units = new List<UnitEnergy>();
             foreach (DataRow row in ds.Tables[0].Rows)
             {
                 var unitOFMesurement = new UnitOfMesurement
@@ -56,19 +56,11 @@ namespace Hybrid.Models.DAL
                     Type = row["Type"].ToString()
                 };
 
-                var ingredient = new Ingredient
-                {
-                    Name = row["Ingredient"].ToString(),
-                    Id = (int)row["IDIngredient"],
-                    TypeId = (int)row["IDIngredientType"]
-                };
-
                 units.Add
                     (
-                        new IngredientEnergy
+                        new UnitEnergy
                         {
-                            Energy = (float)row["EnergyKcal"],
-                            Ingredient = ingredient,
+                            Kcal = (float)row["EnergyKcal"],
                             Value = (float)row["Value"],
                             Unit = unitOFMesurement
 
@@ -111,7 +103,7 @@ namespace Hybrid.Models.DAL
         public bool isUserSetup(string entityID)
         {
             //var result = (bool) SqlHelper.ExecuteScalar(cs, "isUserSetup", userID);
-            
+
             ds = SqlHelper.ExecuteDataset(cs, "isUserSetup", entityID);
             DataRow row = ds.Tables[0].Rows[0];
             var result = (bool)row[0];
@@ -141,20 +133,6 @@ namespace Hybrid.Models.DAL
             ds = SqlHelper.ExecuteDataset(cs, "getUser", entityID);
             DataRow row = ds.Tables[0].Rows[0];
 
-            //return new User
-            //{
-            //    Id = (int)row["IDUser"],
-            //    EntityID = row["CredentialsID"].ToString(),
-            //    Name = row["Name"].ToString(),
-            //    Surname = row["Surname"].ToString(),
-            //    Height = (float)row["HeightCm"],
-            //    Weight = (float)row["WightKg"],
-            //    Sex = (char)row["Sex"],
-            //    DateOFBirth = DateTime.Parse(row["DateOfBirth"].ToString()),
-            //    LevelOfActivityID = (int)row["LevelOfActivityID"],
-            //    DiabetesType = (int)row["DiabetesType"]
-            //};
-
             User u = new User();
             u.Id = (int)row["IDUser"];
             u.EntityID = row["CredentialsID"].ToString();
@@ -168,6 +146,28 @@ namespace Hybrid.Models.DAL
             u.DiabetesType = int.Parse(row["DiabetesType"].ToString());
 
             return u;
+        }
+
+        public IList<NutrientsPerMeal> GetNutrientsPerMeal(int noOfMeals)
+        {
+            ds = SqlHelper.ExecuteDataset(cs, "getNutrientsPerMeal", noOfMeals);
+            IList<NutrientsPerMeal> nutrients = new List<NutrientsPerMeal>();
+
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                var meal = new NutrientsPerMeal();
+
+                meal.PercentCarbs = double.Parse(row["PercentageOfCarbs"].ToString());
+                meal.PercentFat = double.Parse(row["PercentageOfCarbs"].ToString());
+                meal.PercentProtein = double.Parse(row["PercentageOfCarbs"].ToString());
+                meal.MealId = (int)row["IDMealName"];
+                meal.MealName = row["Name"].ToString();
+                meal.OfMeals = int.Parse(row["OfMeals"].ToString());
+                meal.PercentCalorie = double.Parse(row["PercentageOfCal"].ToString());
+
+                nutrients.Add(meal);
+            }
+            return nutrients;
         }
     }
 }

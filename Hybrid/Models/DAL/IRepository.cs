@@ -12,13 +12,13 @@ namespace Hybrid.Models.DAL
         void InsertIngredient(Ingredient ingredient);
         Ingredient GetIngredient(int id);
         IList<Ingredient> GetAllIngredients();
-        IList<IngredientEnergy> GetUnitsOfMesurement(int ingredientId);
+        IList<UnitEnergy> GetUnitsOfMesurement(int ingredientId);
         IList<string> GetMealNames(int noOfMeals);
         Ingredient GetRandomIngredient(int typeId);
         IDictionary<string, int> GetAllIngredientTypes();
         bool isUserSetup(string entityID);
         IList<LevelOfActivity> GetLvlsOfActivity();
-
+        IList<NutrientsPerMeal> GetNutrientsPerMeal(int noOfMeals);
         User GetUser(string entityID);
 
     }
