@@ -377,10 +377,10 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Admin\Site.Master" />
     <Content Include="Views\Shared\_LandingLayout.cshtml" />
-    <Content Include="Views\Menu\Index.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Menu\Generate.cshtml" />
-    <Content Include="Views\Menu\SetupUser.cshtml" />
-    <Content Include="Views\Menu\UserInfo.cshtml" />
+    <Content Include="Views\User\SetupUser.cshtml" />
+    <Content Include="Views\User\UserInfo.cshtml" />
     <Content Include="Views\Menu\_Meals.cshtml" />
   </ItemGroup>
   <ItemGroup>

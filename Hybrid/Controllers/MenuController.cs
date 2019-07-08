@@ -17,7 +17,7 @@ namespace Hybrid.Controllers
 
         public ActionResult GenerateMeals(int noOfMeals)
         {
-            return PartialView("_Meals", menu);
+            return PartialView("_Meals");
         }
     }
 }
