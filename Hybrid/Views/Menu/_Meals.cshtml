@@ -7,7 +7,7 @@
     var types = ViewBag.types as Dictionary<IngredientType, int>;
     var userCalories = (double)ViewBag.userCalories;
 }
-<p>Target calories: @userCalories</p>
+<h4>Target calories: <span class="label label-info">@userCalories</span></h4>
 <table class="table table-bordered table-hover">
     <thead class="thead-dark">
         <tr>

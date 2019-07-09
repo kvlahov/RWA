@@ -79,7 +79,7 @@
         </form>
     </div>
 </div>
-<div class="lds-hourglass col-sm-offset-2" id="loading"></div>
+<div class="lds-hourglass col-sm-offset-2" id="loading" style="display:none"></div>
 
 <div id="meals">
 </div>
@@ -94,7 +94,6 @@
             $("#loading").hide();
         });
 
-        $('#loading').hide();
         $('#datepicker').datepicker({
             format: "dd/mm/yyyy",
             autoclose: true,
