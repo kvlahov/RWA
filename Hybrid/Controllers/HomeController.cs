@@ -13,7 +13,7 @@ namespace Hybrid.Controllers
         {
             if (User.IsInRole("User"))
             {
-                return RedirectToAction("Index", "Menu");
+                return RedirectToAction("Index", "User");
             }
             return View();
         }
