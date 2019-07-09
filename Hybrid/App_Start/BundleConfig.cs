@@ -23,12 +23,15 @@ namespace Hybrid
                         "~/Scripts/bootstrap-datepicker.js",
                         //"~/Scripts/bootstrap-datepicker3.js",
                       "~/Scripts/bootstrap.js"));
-
+            bundles.Add(new ScriptBundle("~/bundles/custom").Include(
+                    "~/Scripts/globalAjax.js"
+                    ));
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/bootstrap-datepicker.css",
                       "~/Content/checkboxDropdown.css",
-                      
+                      "~/Content/loader.css",
+
                       //"~/Content/bootstrap-datepicker3.css",
                       "~/Content/site.css"));
         }

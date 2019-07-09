@@ -1,7 +1,16 @@
-﻿namespace Hybrid.Models.Enums
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Hybrid.Models.Enums
 {
     public enum IngredientType
     {
-        Carbs, Fat, Protein
+        [Display(Name ="Ugljikohidrati")]
+        Carbs,
+        [Display(Name = "Masti")]
+        Fat,
+        [Display(Name = "Proteini")]
+        Protein,
+        [Display(Name = "Ostalo")]
+        Other
     }
 }

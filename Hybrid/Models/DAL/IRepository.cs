@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hybrid.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace Hybrid.Models.DAL
         IList<UnitEnergy> GetUnitsOfMesurement(int ingredientId);
         IList<string> GetMealNames(int noOfMeals);
         Ingredient GetRandomIngredient(int typeId);
-        IDictionary<string, int> GetAllIngredientTypes();
+        IDictionary<IngredientType, int> GetAllIngredientTypes();
         bool isUserSetup(string entityID);
         IList<LevelOfActivity> GetLvlsOfActivity();
         IList<NutrientsPerMeal> GetNutrientsPerMeal(int noOfMeals);

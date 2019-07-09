@@ -10,7 +10,7 @@ namespace Hybrid.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public double CaloriePercent { get; set; }
-        public IDictionary<Ingredient, List<UnitEnergy>> IngredientEnergy{ get; set; }
+        public IDictionary<Ingredient, IList<UnitEnergy>> IngredientEnergy{ get; set; }
 
     }
 }

@@ -1,16 +1,13 @@
 ﻿@using Hybrid.Models
+@using Hybrid.Models.Enums
+
 @model MenuViewModel
 
 @{
-    var mealType = new Dictionary<int, string>
-{
-        {1, "Ugljikohidrati" },
-        {2, "Proteini" },
-        {3, "Masti" },
-
-    };
+    var types = ViewBag.types as Dictionary<IngredientType, int>;
+    var userCalories = (double)ViewBag.userCalories;
 }
-
+<p>Target calories: @userCalories</p>
 <table class="table table-bordered table-hover">
     <thead class="thead-dark">
         <tr>
@@ -25,25 +22,49 @@
         @{var i = 1; }
         @foreach (var meal in Model.Meals)
         {
-            
-            <tr>
-                <th rowspan="3" style="vertical-align:middle !important" scope="row">@i</th>
-                <td rowspan="3" style="vertical-align:middle !important">@meal.Name</td>
-                <td>@meal.IngredientEnergy.Keys.First().Name</td>
-                <td>@mealType[meal.IngredientEnergy.Keys.First().TypeId]</td>
-                <td>@meal.IngredientEnergy.Values.First().First().Value g</td>
-            </tr>
+            var first = true;
+            @(new HtmlString("<tr>"))
+            <th rowspan="3" style="vertical-align:middle !important" scope="row">@i</th>
+            <td rowspan="3" style="vertical-align:middle !important">@meal.Name</td>
 
-            for (int j = 1; j <= 2; j++)
+            foreach (var entry in meal.IngredientEnergy)
             {
-                <tr>
-                    <td>@meal.IngredientEnergy.Keys.ToArray()[j].Name</td>
-                    <td>@mealType[meal.IngredientEnergy.Keys.ToArray()[j].TypeId]</td>
-                    <td>@meal.IngredientEnergy.Values.ToArray()[j].First().Value g</td>
-                </tr>
-            }
-            i++;
-        }
+                if (!first)
+                {
+                    @(new HtmlString("<tr>"))
+                }
 
-    </tbody>
-</table>
+                <td>@entry.Key.Name</td>
+                <td>
+                    @entry.Key.GetIngredientType()
+                </td>
+
+
+                if (entry.Value.Count > 1)
+                {
+                    <td>
+                        <select class="form-control">
+                            @foreach (var item in entry.Value)
+                            {
+                                <option>@item.Value.ToString("0.00") @item.Unit.Type</option>
+                            }
+                        </select>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @entry.Value.First().Value.ToString("0.00") @entry.Value.First().Unit.Type
+                    </td>
+                }
+                if (first)
+                {
+                    first = false;
+                }
+                @*@(new HtmlString("</tr>"))*@
+            }
+        i++;
+    }
+
+        </tbody>
+    </table>

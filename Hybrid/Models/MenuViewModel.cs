@@ -10,6 +10,6 @@ namespace Hybrid.Models
         public int Id { get; set; }
         public DateTime ForDay { get; set; }
         public User User { get; set; }
-        public IList<Meal> Meals { get; set; }        
+        public IList<Meal> Meals { get; set; }
     }
 }

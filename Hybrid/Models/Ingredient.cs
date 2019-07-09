@@ -11,5 +11,20 @@ namespace Hybrid.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int TypeId { get; set; }
+
+        public IngredientType GetIngredientType()
+        {
+            switch (TypeId)
+            {
+                case 1:
+                    return IngredientType.Carbs;
+                case 2:
+                    return IngredientType.Protein;
+                case 3:
+                    return IngredientType.Fat;
+                default:
+                    return IngredientType.Other;
+            }
+        }
     }
 }

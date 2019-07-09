@@ -1,4 +1,5 @@
-﻿using Microsoft.ApplicationBlocks.Data;
+﻿using Hybrid.Models.Enums;
+using Microsoft.ApplicationBlocks.Data;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -36,7 +37,15 @@ namespace Hybrid.Models.DAL
 
         public Ingredient GetIngredient(int id)
         {
-            throw new NotImplementedException();
+            ds = SqlHelper.ExecuteDataset(cs, "getIngredient", id);
+            DataRow row = ds.Tables[0].Rows[0];
+            return new Ingredient
+            {
+                Id = (int)row["IDIngredient"],
+                Name = row["Name"].ToString(),
+                TypeId = (int)row["IngredientTypeID"]
+
+            };
         }
 
         public IList<Ingredient> GetAllIngredients()
@@ -53,15 +62,15 @@ namespace Hybrid.Models.DAL
                 var unitOFMesurement = new UnitOfMesurement
                 {
                     Id = (int)row["IDUnitOfMesurement"],
-                    Type = row["Type"].ToString()
+                    Type = row["UnitOfMesurement"].ToString()
                 };
 
                 units.Add
                     (
                         new UnitEnergy
                         {
-                            Kcal = (float)row["EnergyKcal"],
-                            Value = (float)row["Value"],
+                            Kcal = Double.Parse(row["EnergyKcal"].ToString()),
+                            Value = Double.Parse(row["Value"].ToString()),
                             Unit = unitOFMesurement
 
                         }
@@ -95,9 +104,30 @@ namespace Hybrid.Models.DAL
             };
         }
 
-        public IDictionary<string, int> GetAllIngredientTypes()
+        public IDictionary<IngredientType, int> GetAllIngredientTypes()
         {
-            throw new NotImplementedException();
+            ds = SqlHelper.ExecuteDataset(cs, "getAllIngredientTypes");
+            var types = new Dictionary<IngredientType, int>();
+            IngredientType ingType = IngredientType.Other;
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                switch (row["Type"].ToString())
+                {
+                    case "Ugljikohidrati":
+                        ingType = IngredientType.Carbs;
+                        break;
+                    case "Proteini":
+                        ingType = IngredientType.Protein;
+                        break;
+                    case "Masti":
+                        ingType = IngredientType.Fat;
+                        break;
+                    default:
+                        break;
+                }
+                types.Add(ingType, (int)row["IDIngredientType"]);
+            }
+            return types;
         }
 
         public bool isUserSetup(string entityID)
