@@ -124,6 +124,15 @@
              $('#menuForm').attr('action', '@Url.Action("Save")');
         });*@
 
+        function updateCheckboxes() {
+            $(':checkbox', '#meals').each((i, el) => {
+                if ($(el).prop('checked')) {
+                    $(el).trigger('change');
+                }
+            })
+
+        }
+
         $('#btnGenerate').click((e) => {
             e.preventDefault();
             console.log($('#menuForm').serializeArray());
@@ -138,8 +147,10 @@
                     success: function (partialView) {
                         $("#meals").html(partialView).fadeIn(800);
                         $('#btnSave').fadeIn(100);
+                        updateCheckboxes();
                     }
             })
+
 
              @*$.ajax({
                 url: "@Url.Action("GenerateMeals")",
