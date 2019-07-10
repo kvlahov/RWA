@@ -12,62 +12,120 @@ namespace Hybrid.Controllers
 {
     public class MenuController : Controller
     {
-        private IRepository repo = RepoFactory.GetRepository();
+        private readonly IRepository repo = RepoFactory.GetRepository();
         public ActionResult Generate()
         {
             return View(new MenuViewModel());
         }
 
-        public ActionResult GenerateMeals(int noOfMeals)
+        [HttpPost]
+        public ActionResult GenerateMeals(MenuViewModel model, int noOfMeals)
         {
             var user = repo.GetUser(User.Identity.GetUserId());
             var userCalories = user.GetCalorieIntake();
-            MenuViewModel menu = new MenuViewModel()
-            {
-                Meals = new List<Meal>(),
-                User = user
-            };
+            var nutrients = repo.GetNutrientsPerMeal(noOfMeals);
 
-            foreach (var npm in repo.GetNutrientsPerMeal(noOfMeals))
+            MenuViewModel menu = null;
+
+            if (model.Meals.Count == noOfMeals)
             {
-                Meal meal = new Meal
+                ModelState.Clear();
+                var checkedMeals = model.Meals.Where(m => m.IsChecked).Select(m => m.MealNameId).ToList();
+
+                foreach (var meal in model.Meals)
                 {
-                    CaloriePercent = npm.PercentCalorie,
-                    Name = npm.MealName,
-                    MealNameId = npm.MealId,
-                    Ingredients = new List<IngredientViewModel>()
-                };
-
-                repo.GetAllIngredientTypes().ToList()
-                    .ForEach(entry =>
+                    //fill meals and ingredients info
+                    var npm = nutrients.Where(n => n.MealId == meal.MealNameId).First();
+                    meal.Name = nutrients.Where(n => n.MealId == meal.MealNameId).Select(n => n.MealName).First();
+                    meal.Ingredients.ToList().ForEach(ing => 
                     {
-                        var ing = repo.GetRandomIngredient(entry.Value);
+                        ing.BindIngredient(repo.GetIngredient(ing.Id));
                         var units = repo.GetUnitsOfMesurement(ing.Id);
+                        ing.BaseUnitEnergy = units;
 
-                        var ingViewModel = new IngredientViewModel();
-                        ingViewModel.BindIngredient(ing);
-                        ingViewModel.BaseUnitEnergy = units;
-
-                        var calorieForType = npm.GetCalorieForType(ingViewModel.Type, userCalories);
-
-                        ingViewModel.FillCalculatedEnergyList(calorieForType);
-
-                        meal.Ingredients.Add(ingViewModel);
+                        var calorieForType = npm.GetCalorieForType(ing.Type, userCalories);
+                        ing.FillCalculatedEnergyList(calorieForType);
                     });
 
-                menu.Meals.Add(meal);
+
+
+                    if (checkedMeals.Contains(meal.MealNameId)) continue;
+                    var ingredients = new List<IngredientViewModel>();
+                    meal.Ingredients
+                        .Where(ing => !ing.IsChecked)
+                        .ToList()
+                        .ForEach(ing =>
+                        {
+                            
+                            var newIng = GenerateIngredientViewModel(ing.TypeId, npm, userCalories);
+                            ing.Id = newIng.Id;
+                            ing.Name = newIng.Name;
+                            ing.Type = newIng.Type;
+                            ing.TypeId = newIng.TypeId;
+                            ing.BaseUnitEnergy = newIng.BaseUnitEnergy;
+                            ing.CalculatedUnitEnergy = newIng.CalculatedUnitEnergy;
+                        });
+                }
+
+            }
+            else
+            {
+                //Generate new menu
+                menu = new MenuViewModel()
+                {
+                    User = user
+                };
+
+                foreach (var npm in nutrients)
+                {
+                    Meal meal = new Meal
+                    {
+                        CaloriePercent = npm.PercentCalorie,
+                        Name = npm.MealName,
+                        MealNameId = npm.MealId
+                    };
+
+                    repo.GetAllIngredientTypes().ToList()
+                        .ForEach(entry =>
+                        {
+                            var ingViewModel = GenerateIngredientViewModel(entry.Value, npm, userCalories);
+                            meal.Ingredients.Add(ingViewModel);
+                        });
+
+                    menu.Meals.Add(meal);
+                }
+
             }
 
             ViewBag.userCalories = userCalories;
-            return PartialView("_Menu", menu);
+
+            var returnMenu = menu ?? model;
+
+            return PartialView("_Menu", returnMenu);
+        }
+
+        private IngredientViewModel GenerateIngredientViewModel(int typeId, NutrientsPerMeal npm, double userCalories)
+        {
+            var ing = repo.GetRandomIngredient(typeId);
+            var units = repo.GetUnitsOfMesurement(ing.Id);
+
+            var ingViewModel = new IngredientViewModel();
+            ingViewModel.BindIngredient(ing);
+            ingViewModel.BaseUnitEnergy = units;
+
+            var calorieForType = npm.GetCalorieForType(ingViewModel.Type, userCalories);
+
+            ingViewModel.FillCalculatedEnergyList(calorieForType);
+
+            return ingViewModel;
         }
 
         public ActionResult Save(MenuViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 model.User = repo.GetUser(User.Identity.GetUserId());
-                repo.InsertMenu(model);
+                //repo.InsertMenu(model);
             }
             return RedirectToAction("Index", "User");
         }

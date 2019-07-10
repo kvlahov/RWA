@@ -18,6 +18,7 @@ namespace Hybrid.Models
 
         public void FillCalculatedEnergyList(double targetCalories)
         {
+            CalculatedUnitEnergy = new List<UnitEnergy>();
             BaseUnitEnergy.ToList().ForEach(unit => CalculatedUnitEnergy.Add(unit.CalculateEnergy(targetCalories)));
         }
 
@@ -27,6 +28,8 @@ namespace Hybrid.Models
             Name = ing.Name;
             TypeId = ing.TypeId;
             Type = ing.GetIngredientType();
+            CalculatedUnitEnergy = new List<UnitEnergy>();
+            BaseUnitEnergy = new List<UnitEnergy>();
         }
 
         public IngredientViewModel()

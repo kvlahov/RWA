@@ -1,8 +1,11 @@
 ﻿@model Hybrid.Models.IngredientViewModel
 
-@Html.HiddenFor(m => m.Id)
-@Html.HiddenFor(m => m.TypeId)
-<td>@Html.CheckBoxFor(m => m.IsChecked) @Html.DisplayFor(m => m.Name)</td>
+
+    <td>
+        @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.TypeId)
+        @Html.CheckBoxFor(m => m.IsChecked) @Html.DisplayFor(m => m.Name)
+    </td>
 <td>@Html.DisplayFor(m => m.Type)</td>
 <td>
     @if (Model.CalculatedUnitEnergy.Count > 1)

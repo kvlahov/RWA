@@ -9,7 +9,7 @@
 
 <h2>Generate new menu</h2>
 
-@using (Html.BeginForm("Save", "Menu", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("Save", "Menu", FormMethod.Post, new { @class = "form-horizontal", id = "menuForm" }))
 {
 
     <div class="row">
@@ -20,7 +20,7 @@
                 @*@Html.LabelFor(model => model.ForDay, new { @class = "control-label col-sm-3" })*@
                 <div class="col-sm-9">
                     <div class="input-group date datepicker-inline" id="datepicker">
-                        @Html.TextBoxFor(model => model.ForDay, "{0:dd/MM/yyyy}", new { @class = "form-control dateInput" })
+                        @Html.TextBoxFor(model => model.ForDay, "{0:dd/MM/yyyy}", new { @class = "form-control dateInput", @readonly = "readonly" })
                         @*<input type="text" class="form-control" id="dateInput" />*@
                         <span class="input-group-addon" id="basic-addon1">
                             <span class="glyphicon glyphicon-calendar"></span>
@@ -32,7 +32,7 @@
             <div class="form-group">
                 <label for="noMeals" class="col-sm-3 control-label">Number of Meals</label>
                 <div class="col-sm-9">
-                    <select id="noMeals" class="form-control">
+                    <select id="noMeals" name="noOfMeals" class="form-control">
                         @for (int i = 1; i < 11; i++)
                         {
                             <option>@i</option>
@@ -94,6 +94,11 @@
 
 @section scripts {
     <script>
+        function showMenu(view) {
+            //console.log($('#menuForm').serialize());
+            //    $("#meals").html(view).fadeIn(800);
+            //    $('#btnSave').fadeIn(100);
+        }
         const dateFormat = "dd-mm-yyyy"
 
         $('#datepicker').datepicker({
@@ -115,24 +120,42 @@
             width: $('#noMeals').css('width')
         });
 
+        @*$('#btnSave').click(function (e) {
+             $('#menuForm').attr('action', '@Url.Action("Save")');
+        });*@
+
         $('#btnGenerate').click((e) => {
             e.preventDefault();
+            console.log($('#menuForm').serializeArray());
             $('#meals').hide();
             $('#btnSave').fadeOut(200);
             $.ajax({
                     url: '@Url.Action("GenerateMeals")',
-                    method: 'GET',
+                    method: 'POST',
                     cache: false,
                     dataType: 'html',
-                    data: { noOfMeals: $('#noMeals').val()},
+                    data: $('#menuForm').serialize(),
                     success: function (partialView) {
                         $("#meals").html(partialView).fadeIn(800);
                         $('#btnSave').fadeIn(100);
                     }
             })
 
-        });
+             @*$.ajax({
+                url: "@Url.Action("GenerateMeals")",
+                type: "POST",
+                data: JSON.stringify(jsonObject),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                error: function (response) {
+                    alert(response.responseText);
+                },
+                success: function (response) {
+                    alert(response);
+                }
+            });*@
 
+        });
 
     </script>
 

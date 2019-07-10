@@ -4,10 +4,12 @@
     var no = (int)ViewBag.counter;
 }
 
-@Html.HiddenFor(m => m.MealNameId)
 <tr>
     <th rowspan="4" style="vertical-align:middle !important" scope="row">@(no + 1)</th>
-    <th rowspan="4" style="vertical-align:middle !important">@Html.CheckBoxFor(m => m.IsChecked) @Html.DisplayFor(m => m.Name)</th>
+    <th rowspan="4" style="vertical-align:middle !important">
+        @Html.HiddenFor(m => m.MealNameId)
+        @Html.CheckBoxFor(m => m.IsChecked) @Html.DisplayFor(m => m.Name)
+    </th>
 </tr>
 @for (int i = 0; i < Model.Ingredients.Count; i++)
 {

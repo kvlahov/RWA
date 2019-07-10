@@ -20,7 +20,7 @@ else
     <div class="row">
         <div class="col-sm-8 ">
             <div class="form-group">
-                <label for="datepicker" class="col-sm-4">Pick a date</label>
+                <label for="datepicker" class="col-sm-4 ontrol-label">Pick a date</label>
                 <div class="col-sm-8">
                     @*@Html.DropDownListFor(m => DateTime.Now,
                         new SelectList(Model.Select(s =>
@@ -30,7 +30,7 @@ else
                     <select class="form-control" onchange="showMenuAjax(this.value)">
                         @foreach (var date in Model)
                         {
-                            <option value="@date">@date</option>
+                            <option value="@date">@date.ToShortDateString()</option>
                         }
                     </select>
                 </div>
@@ -38,6 +38,7 @@ else
         </div>
     </div>
     @Html.Partial("_Loader");
+
     <div id="menu">
         @Html.Action("ActiveMenu", new { day = DateTime.Now })
     </div>
@@ -47,7 +48,6 @@ else
     <script>
         function showMenuAjax(value) {
             console.log(value)
-            //$('#menu').hide();
             $('#menu').fadeOut(500);
             $.ajax({
                     url: '@Url.Action("ActiveMenu")',

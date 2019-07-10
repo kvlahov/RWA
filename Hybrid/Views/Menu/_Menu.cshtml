@@ -1,10 +1,9 @@
 ﻿@using Hybrid.Models
-@using Hybrid.Models.Enums
 
 @model MenuViewModel
 
 @{
-    var userCalories = (double)ViewBag.userCalories;
+    var userCalories = Convert.ToDouble(ViewBag.userCalories);
 }
 
 <style>
@@ -57,7 +56,6 @@
             $(this).siblings('tr:not(:first-of-type)')
                 .addBack()
                 .each((index, el) => {
-                    console.log($(el).find(':checkbox').prop('checked'))
                     if ($(el).find(':checkbox').prop('checked')) count++;
 
                 })
