@@ -1,0 +1,22 @@
+﻿@model Hybrid.Models.IngredientViewModel
+
+@Html.HiddenFor(m => m.Id)
+@Html.HiddenFor(m => m.TypeId)
+<td>@Html.CheckBoxFor(m => m.IsChecked) @Html.DisplayFor(m => m.Name)</td>
+<td>@Html.DisplayFor(m => m.Type)</td>
+<td>
+    @if (Model.CalculatedUnitEnergy.Count > 1)
+    {
+        @Html.DropDownListFor(m => m.CalculatedUnitEnergy.First().Value, new SelectList(Model.CalculatedUnitEnergy, "Value", "DisplayValue"), new { @class="form-control" })
+    }
+    else
+    {
+        @Html.DisplayFor(m => m.CalculatedUnitEnergy.First().DisplayValue)
+    }
+</td>
+
+@for (int i = 0; i < Model.CalculatedUnitEnergy.Count; i++)
+{
+    @Html.HiddenFor(m => m.CalculatedUnitEnergy[i].Unit.Id)
+    @Html.HiddenFor(m => m.CalculatedUnitEnergy[i].Value)
+}

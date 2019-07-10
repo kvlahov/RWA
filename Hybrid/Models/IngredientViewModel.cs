@@ -12,6 +12,7 @@ namespace Hybrid.Models
         public string Name { get; set; }
         public int TypeId { get; set; }
         public IngredientType Type { get; set; }
+        public bool IsChecked { get; set; }
         public IList<UnitEnergy> BaseUnitEnergy { get; set; }
         public IList<UnitEnergy> CalculatedUnitEnergy { get; set; }
 

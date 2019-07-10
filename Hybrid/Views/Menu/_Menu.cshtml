@@ -6,8 +6,20 @@
 @{
     var userCalories = (double)ViewBag.userCalories;
 }
+
+<style>
+    tr {
+        transition: background-color .4s ease;
+    }
+
+        tr.highlight {
+            background-color: #abdb81;
+            font-weight: bold;
+        }
+</style>
+
 <h4>Target calories: <span class="label label-info">@userCalories</span></h4>
-<table class="table table-bordered table-hover">
+<table class="table table-bordered">
     <thead class="thead-dark">
         <tr>
             <th scope="col">#</th>
@@ -17,13 +29,54 @@
             <th scope="col">Unit of Mesurement</th>
         </tr>
     </thead>
-    <tbody>
-        @for (int i = 0; i < Model.Meals.Count; i++)
-        {
-            ViewBag.counter = i;
+    @for (int i = 0; i < Model.Meals.Count; i++)
+    {
+        ViewBag.counter = i;
+        <tbody>
 
             @Html.DisplayFor(m => m.Meals[i]);
-        }
+        </tbody>
+    }
 
-    </tbody>
-    </table>
+</table>
+
+<script>
+    $('tbody tr').click(function (event) {
+        if (event.target.type !== 'checkbox') {
+            $(this).find(':checkbox').trigger('click');
+        }
+        else {
+            $(this).trigger('change')
+        }
+        if ($(this).is('tr:first-of-type')) {
+            let state = $(this).find(':checkbox').prop('checked');
+            $(this).nextAll().find(':checkbox').prop('checked', state);
+        }
+        else {
+            let count = 0;
+            $(this).siblings('tr:not(:first-of-type)')
+                .addBack()
+                .each((index, el) => {
+                    console.log($(el).find(':checkbox').prop('checked'))
+                    if ($(el).find(':checkbox').prop('checked')) count++;
+
+                })
+            if (count === 0 || count === 3) {
+                $(this).siblings('tr:first-of-type')
+                    .find(':checkbox').prop('checked', $(this).find(':checkbox').prop('checked'));
+                $(this).siblings('tr:first-of-type')
+                    .find(':checkbox').trigger('change');
+            }
+        }
+    });
+
+    $("input[type='checkbox']").change(function (e) {
+        $(this).closest('tr').toggleClass("highlight", this.checked);
+
+        if ($(this).closest('tr').is('tr:first-of-type')) {
+            $(this).closest('tr').nextAll().toggleClass("highlight", this.checked);
+        }
+    });
+
+
+</script>

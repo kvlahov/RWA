@@ -11,6 +11,7 @@ namespace Hybrid.Models
         public int MealNameId { get; set; }
         public string Name { get; set; }
         public double CaloriePercent { get; set; }
+        public bool IsChecked { get; set; }
         public IList<IngredientViewModel> Ingredients { get; set; }
 
         public Meal()
