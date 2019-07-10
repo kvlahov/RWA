@@ -1,11 +1,10 @@
 ﻿@using Hybrid.Models
-@model MenuViewModel
+@model List<DateTime>
 
 @{
     ViewBag.Title = "Home";
     var name = ViewBag.userName;
-    var hasMenu = (bool)ViewBag.hasMenu;
-    var dates = ViewBag.Dates as List<DateTime>;
+    var hasMenu = Model != null;
 }
 
 <h2>Welcome, @name!</h2>
@@ -17,22 +16,50 @@
 }
 else
 {
-    <div class="row form-inline">
+
+    <div class="row">
         <div class="col-sm-8 ">
             <div class="form-group">
-                <label for="datepicker" class="col-sm-6 control-label">Pick a date</label>
-
-                <div class="col-sm-6">
-                    @*@Html.DropDownListFor(m => m.ForDay, new SelectList(dates.Select(s => new SelectListItem { Value = s.ToString(), Text = s.ToShortDateString() }).ToList()), new {@class ="form-control" })*@
-                    <select class="form-control">
-                        @foreach (var date in dates)
+                <label for="datepicker" class="col-sm-4">Pick a date</label>
+                <div class="col-sm-8">
+                    @*@Html.DropDownListFor(m => DateTime.Now,
+                        new SelectList(Model.Select(s =>
+                            new SelectListItem { Value = s.ToString(), Text = s.ToShortDateString() }),
+                            "Value", "Text"),
+                        new { @class = "form-control", @onchange = "showMenuAjax(this.value)" })*@
+                    <select class="form-control" onchange="showMenuAjax(this.value)">
+                        @foreach (var date in Model)
                         {
-                            <option>@date.ToShortDateString()</option>
+                            <option value="@date">@date</option>
                         }
                     </select>
                 </div>
             </div>
         </div>
-    </div>    
-    @Html.Partial("~/Views/Menu/_Menu.cshtml", Model)
+    </div>
+    @Html.Partial("_Loader");
+    <div id="menu">
+        @Html.Action("ActiveMenu", new { day = DateTime.Now })
+    </div>
+}
+
+@section scripts {
+    <script>
+        function showMenuAjax(value) {
+            console.log(value)
+            //$('#menu').hide();
+            $('#menu').fadeOut(500);
+            $.ajax({
+                    url: '@Url.Action("ActiveMenu")',
+                    method: 'GET',
+                    cache: false,
+                    dataType: 'html',
+                    data: { day: value},
+                    success: function (partialView) {
+                        $("#menu").html(partialView).fadeIn(800);
+                    }
+            })
+        }
+
+    </script>
 }

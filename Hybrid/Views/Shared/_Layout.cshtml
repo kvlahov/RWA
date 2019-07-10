@@ -32,6 +32,7 @@
     </div>
     <div class="container body-content">
         @RenderBody()
+        <div class="lds-hourglass col-sm-offset-2" id="loading" style="display:none"></div>
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - SugarBaby - monitor your daily calorie intake with style </p>
@@ -40,7 +41,16 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @*<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>*@
     @RenderSection("scripts", required: false)
+
+    <script>
+        $(document).ajaxStart(function () {
+            $("#loading").show();
+        });
+
+        $(document).ajaxStop(function () {
+            $("#loading").hide();
+        });
+    </script>
 </body>
 </html>

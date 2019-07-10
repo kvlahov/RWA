@@ -89,21 +89,11 @@
     </div>
 }
 
-
-<div class="lds-hourglass col-sm-offset-2" id="loading" style="display:none"></div>
-
+<div class="col-sm-offset-2">@Html.Partial("_Loader")</div>
 
 
 @section scripts {
     <script>
-        $(document).ajaxStart(function () {
-            $("#loading").show();
-        });
-
-        $(document).ajaxStop(function () {
-            $("#loading").hide();
-        });
-
         const dateFormat = "dd-mm-yyyy"
 
         $('#datepicker').datepicker({
@@ -111,7 +101,6 @@
             autoclose: true,
             startDate: new Date()
         });
-
 
         $(".checkbox-menu").on("change", "input[type='checkbox']", function () {
             $(this).closest("li").toggleClass("active", this.checked);

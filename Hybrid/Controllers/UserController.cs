@@ -19,12 +19,21 @@ namespace Hybrid.Controllers
         public ActionResult Index()
         {
             var user = repo.GetUser(User.Identity.GetUserId());
-            var menu = repo.GetMenu(DateTime.Now, user.Id);
+            var dates = repo.GetDatesForMenus(user.Id);
+
             ViewBag.userName = user.Name;
-            ViewBag.hasMenu = menu != null ? true : false;
+            return View(dates);
+        }
+
+        public ActionResult ActiveMenu(DateTime? day)
+        {
+            DateTime date = day ?? DateTime.Now;
+
+            var user = repo.GetUser(User.Identity.GetUserId());
+            var menu = repo.GetMenu(date, user.Id);
+
             ViewBag.userCalories = user.GetCalorieIntake();
-            ViewBag.Dates = repo.GetDatesForMenus(user.Id);
-            return View(menu);
+            return PartialView("~/Views/Menu/_Menu.cshtml", menu);
         }
 
         [HttpGet]

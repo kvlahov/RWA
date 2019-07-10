@@ -224,6 +224,7 @@ namespace Hybrid.Models.DAL
         {
             ds = SqlHelper.ExecuteDataset(cs, "getMealsForMenu", userId, date);
             MenuViewModel menu = new MenuViewModel();
+            menu.ForDay = date;
             foreach (DataRow row in ds.Tables[0].Rows)
             {
                 Meal meal = new Meal();
