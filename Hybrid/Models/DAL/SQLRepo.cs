@@ -265,5 +265,16 @@ namespace Hybrid.Models.DAL
 
             return menu;
         }
+
+        public IList<DateTime> GetDatesForMenus(int userId)
+        {
+            ds = SqlHelper.ExecuteDataset(cs, "getMenusForUser", userId);
+            var dates = new List<DateTime>();
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                dates.Add(DateTime.Parse(row["ForDay"].ToString()));
+            }
+            return dates;
+        }
     }
 }

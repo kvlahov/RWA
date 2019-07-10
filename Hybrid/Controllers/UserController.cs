@@ -23,6 +23,7 @@ namespace Hybrid.Controllers
             ViewBag.userName = user.Name;
             ViewBag.hasMenu = menu != null ? true : false;
             ViewBag.userCalories = user.GetCalorieIntake();
+            ViewBag.Dates = repo.GetDatesForMenus(user.Id);
             return View(menu);
         }
 

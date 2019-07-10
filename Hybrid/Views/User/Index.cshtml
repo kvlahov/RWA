@@ -5,6 +5,7 @@
     ViewBag.Title = "Home";
     var name = ViewBag.userName;
     var hasMenu = (bool)ViewBag.hasMenu;
+    var dates = ViewBag.Dates as List<DateTime>;
 }
 
 <h2>Welcome, @name!</h2>
@@ -16,21 +17,22 @@
 }
 else
 {
-    <div class="row">
-        <div class="col-sm-8 form-inline">
+    <div class="row form-inline">
+        <div class="col-sm-8 ">
             <div class="form-group">
-                <label for="datepicker" class="col-sm-3 control-label">Pick a date</label>
+                <label for="datepicker" class="col-sm-6 control-label">Pick a date</label>
 
-                <div class="col-sm-9">
-                    <div class="input-group date datepicker-inline" id="datepicker">
-                        @Html.TextBoxFor(model => model.ForDay, "{0:dd/MM/yyyy}", new { @class = "form-control dateInput" })
-                        <span class="input-group-addon" id="basic-addon1">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                    </div>
+                <div class="col-sm-6">
+                    @*@Html.DropDownListFor(m => m.ForDay, new SelectList(dates.Select(s => new SelectListItem { Value = s.ToString(), Text = s.ToShortDateString() }).ToList()), new {@class ="form-control" })*@
+                    <select class="form-control">
+                        @foreach (var date in dates)
+                        {
+                            <option>@date.ToShortDateString()</option>
+                        }
+                    </select>
                 </div>
             </div>
         </div>
-    </div>
+    </div>    
     @Html.Partial("~/Views/Menu/_Menu.cshtml", Model)
 }

@@ -25,5 +25,6 @@ namespace Hybrid.Models.DAL
         void InsertMenu(MenuViewModel menu);
         MenuViewModel GetMenu(DateTime date, int userId);
 
+        IList<DateTime> GetDatesForMenus(int userId);
     }
 }
