@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
@@ -198,6 +199,50 @@ namespace Hybrid.Models.DAL
                 nutrients.Add(meal);
             }
             return nutrients;
+        }
+
+        public void InsertMenu(MenuViewModel menu)
+        {
+            int menuId = Convert.ToInt32(SqlHelper.ExecuteScalar(cs, "insertMenu", menu.ForDay, menu.User.Id));
+
+            foreach (var meal in menu.Meals)
+            {
+                int mealId = Convert.ToInt32(SqlHelper.ExecuteScalar(cs, "insertMeal", menuId, meal.MealNameId));
+
+                foreach (var ing in meal.Ingredients)
+                {
+                    ing.CalculatedUnitEnergy.ToList().ForEach(unit => {
+                    SqlHelper.ExecuteNonQuery(cs, "insertIngredientForMeal", mealId, ing.Id, unit.Value, unit.Unit.Id);
+                    });
+
+                }
+            }
+        }
+
+        public MenuViewModel GetMenu(DateTime date, int userId)
+        {
+            ds = SqlHelper.ExecuteDataset(cs, "GetMenuForUser", userId, date);
+            MenuViewModel menu = new MenuViewModel();
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                /*
+                IDMenu	
+
+                MealName	
+                PercentageOfCal
+
+                Ingredient	
+                IDIngredientType	
+                IngredientType
+                
+                CalculatedValue	
+                UnitOfMesurement
+                 */
+
+                //menu.
+            }
+
+            return menu;
         }
     }
 }

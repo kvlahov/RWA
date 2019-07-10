@@ -22,5 +22,8 @@ namespace Hybrid.Models.DAL
         IList<NutrientsPerMeal> GetNutrientsPerMeal(int noOfMeals);
         User GetUser(string entityID);
 
+        void InsertMenu(MenuViewModel menu);
+        MenuViewModel GetMenu(DateTime date, int userId);
+
     }
 }

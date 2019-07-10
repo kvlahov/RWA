@@ -66,7 +66,8 @@ namespace Hybrid.Controllers
         {
             if(ModelState.IsValid)
             {
-                var m = model;
+                model.User = repo.GetUser(User.Identity.GetUserId());
+                repo.InsertMenu(model);
             }
             return RedirectToAction("Index", "User");
         }
