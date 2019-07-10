@@ -5,7 +5,14 @@
 <td>@Html.DisplayFor(m => m.Name)</td>
 <td>@Html.DisplayFor(m => m.Type)</td>
 <td>
-    @Html.DropDownListFor(m => m.CalculatedUnitEnergy.First().Value, new SelectList(Model.CalculatedUnitEnergy))
+    @if (Model.CalculatedUnitEnergy.Count > 1)
+    {
+        @Html.DropDownListFor(m => m.CalculatedUnitEnergy.First().Value, new SelectList(Model.CalculatedUnitEnergy, "Value", "DisplayValue"), new { @class="form-control" })
+    }
+    else
+    {
+        @Html.DisplayFor(m => m.CalculatedUnitEnergy.First().DisplayValue)
+    }
 </td>
 
 @for (int i = 0; i < Model.CalculatedUnitEnergy.Count; i++)

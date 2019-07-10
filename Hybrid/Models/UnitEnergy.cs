@@ -15,6 +15,10 @@ namespace Hybrid.Models
 
         [DisplayFormat(DataFormatString = "{0:#,##0.000#}", ApplyFormatInEditMode = true)]
         public double Kcal { get; set; }
+        public string DisplayValue 
+        {
+            get => $"{Value.ToString("0.00")} {Unit.Type}";
+        }
 
         internal UnitEnergy CalculateEnergy(double calculatedCalorie)
         {
