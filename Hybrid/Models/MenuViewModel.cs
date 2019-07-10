@@ -16,5 +16,10 @@ namespace Hybrid.Models
         public DateTime ForDay { get; set; } = DateTime.Now;
         public User User { get; set; }
         public IList<Meal> Meals { get; set; }
+
+        public MenuViewModel()
+        {
+            Meals = new List<Meal>();
+        }
     }
 }

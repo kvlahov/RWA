@@ -211,8 +211,9 @@ namespace Hybrid.Models.DAL
 
                 foreach (var ing in meal.Ingredients)
                 {
-                    ing.CalculatedUnitEnergy.ToList().ForEach(unit => {
-                    SqlHelper.ExecuteNonQuery(cs, "insertIngredientForMeal", mealId, ing.Id, unit.Value, unit.Unit.Id);
+                    ing.CalculatedUnitEnergy.ToList().ForEach(unit =>
+                    {
+                        SqlHelper.ExecuteNonQuery(cs, "insertIngredientForMeal", mealId, ing.Id, unit.Value, unit.Unit.Id);
                     });
 
                 }
@@ -221,25 +222,45 @@ namespace Hybrid.Models.DAL
 
         public MenuViewModel GetMenu(DateTime date, int userId)
         {
-            ds = SqlHelper.ExecuteDataset(cs, "GetMenuForUser", userId, date);
+            ds = SqlHelper.ExecuteDataset(cs, "getMealsForMenu", userId, date);
             MenuViewModel menu = new MenuViewModel();
             foreach (DataRow row in ds.Tables[0].Rows)
             {
-                /*
-                IDMenu	
+                Meal meal = new Meal();
+                meal.Id = (int)row["IDMeal"];
+                meal.Name = row["Name"].ToString();
+                meal.MealNameId = (int)row["MealNameID"];
 
-                MealName	
-                PercentageOfCal
+                DataSet ings = SqlHelper.ExecuteDataset(cs, "getIngredientsForMeal", meal.Id);
+                foreach (DataRow ingRow in ings.Tables[0].Rows)
+                {
+                    IngredientViewModel ingVM = new IngredientViewModel();
+                    var tmpIng = new Ingredient
+                    {
+                        Id = (int)ingRow["IDIngredient"],
+                        Name = ingRow["Name"].ToString(),
+                        TypeId = (int)ingRow["IDIngredientType"],
+                    };
+                    ingVM.BindIngredient(tmpIng);
 
-                Ingredient	
-                IDIngredientType	
-                IngredientType
-                
-                CalculatedValue	
-                UnitOfMesurement
-                 */
+                    DataSet units = SqlHelper.ExecuteDataset(cs, "getCalculatedEnergy", ingVM.Id, meal.Id);
+                    foreach (DataRow unit in units.Tables[0].Rows)
+                    {
+                        UnitEnergy ue = new UnitEnergy();
+                        ue.Value = float.Parse(unit["CalculatedValue"].ToString());
+                        ue.Unit = new UnitOfMesurement
+                        {
+                            Id = (int)unit["UnitOfMesurementID"],
+                            Type = unit["Type"].ToString()
+                        };
 
-                //menu.
+                        ingVM.CalculatedUnitEnergy.Add(ue);
+                    }
+
+                    meal.Ingredients.Add(ingVM);
+                }
+
+                menu.Meals.Add(meal);
             }
 
             return menu;

@@ -387,8 +387,8 @@
     <Content Include="Views\User\SetupUser.cshtml" />
     <Content Include="Views\User\UserInfo.cshtml" />
     <Content Include="Views\Menu\_Menu.cshtml" />
-    <Content Include="Views\Menu\DisplayTemplates\IngredientViewModel.cshtml" />
-    <Content Include="Views\Menu\DisplayTemplates\Meal.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\IngredientViewModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Meal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

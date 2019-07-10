@@ -29,5 +29,6 @@ namespace Hybrid.Models
                 Kcal = calculatedCalorie
             };
         }
+
     }
 }

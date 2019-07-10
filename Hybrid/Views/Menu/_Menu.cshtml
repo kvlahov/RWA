@@ -4,7 +4,6 @@
 @model MenuViewModel
 
 @{
-    var types = ViewBag.types as Dictionary<IngredientType, int>;
     var userCalories = (double)ViewBag.userCalories;
 }
 <h4>Target calories: <span class="label label-info">@userCalories</span></h4>

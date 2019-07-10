@@ -18,8 +18,12 @@ namespace Hybrid.Controllers
         // GET: Menu
         public ActionResult Index()
         {
-            ViewBag.userName = repo.GetUser(User.Identity.GetUserId()).Name;
-            return View();
+            var user = repo.GetUser(User.Identity.GetUserId());
+            var menu = repo.GetMenu(DateTime.Now, user.Id);
+            ViewBag.userName = user.Name;
+            ViewBag.hasMenu = menu != null ? true : false;
+            ViewBag.userCalories = user.GetCalorieIntake();
+            return View(menu);
         }
 
         [HttpGet]

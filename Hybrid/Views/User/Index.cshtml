@@ -1,15 +1,36 @@
-﻿
+﻿@using Hybrid.Models
+@model MenuViewModel
+
 @{
     ViewBag.Title = "Home";
     var name = ViewBag.userName;
-    var hasMenu = true;
+    var hasMenu = (bool)ViewBag.hasMenu;
 }
 
 <h2>Welcome, @name!</h2>
 
-@if(hasMenu)
+@if (!hasMenu)
 {
     <p>You do not have any menus generated for today</p>
     @Html.ActionLink("Generate", "Generate", "Menu", null, new { @class = "btn btn-primary" })
 }
+else
+{
+    <div class="row">
+        <div class="col-sm-8 form-inline">
+            <div class="form-group">
+                <label for="datepicker" class="col-sm-3 control-label">Pick a date</label>
 
+                <div class="col-sm-9">
+                    <div class="input-group date datepicker-inline" id="datepicker">
+                        @Html.TextBoxFor(model => model.ForDay, "{0:dd/MM/yyyy}", new { @class = "form-control dateInput" })
+                        <span class="input-group-addon" id="basic-addon1">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("~/Views/Menu/_Menu.cshtml", Model)
+}
