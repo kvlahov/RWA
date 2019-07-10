@@ -204,6 +204,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Ingredient.cs" />
     <Compile Include="Models\Enums\IngredientType.cs" />
+    <Compile Include="Models\IngredientViewModel.cs" />
     <Compile Include="Models\UnitEnergy.cs" />
     <Compile Include="Models\LevelOfActivity.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -385,7 +386,9 @@
     <Content Include="Views\Menu\Generate.cshtml" />
     <Content Include="Views\User\SetupUser.cshtml" />
     <Content Include="Views\User\UserInfo.cshtml" />
-    <Content Include="Views\Menu\_Meals.cshtml" />
+    <Content Include="Views\Menu\_Menu.cshtml" />
+    <Content Include="Views\Menu\DisplayTemplates\IngredientViewModel.cshtml" />
+    <Content Include="Views\Menu\DisplayTemplates\Meal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

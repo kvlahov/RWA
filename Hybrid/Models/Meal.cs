@@ -7,10 +7,11 @@ namespace Hybrid.Models
 {
     public class Meal
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
+        public int MealNameId { get; set; }
         public string Name { get; set; }
         public double CaloriePercent { get; set; }
-        public IDictionary<Ingredient, IList<UnitEnergy>> IngredientEnergy{ get; set; }
+        public IList<IngredientViewModel> Ingredients { get; set; }
 
     }
 }

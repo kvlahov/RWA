@@ -1,22 +1,32 @@
-﻿@{
+﻿@using Hybrid.Models
+
+@model MenuViewModel
+
+@{
     ViewBag.Title = "Generate";
 }
 
 
 <h2>Generate new menu</h2>
-<div class="row">
-    <div class="col-md-8">
-        <form class="form-horizontal" action="">
+
+@using (Html.BeginForm("Save", "Menu", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+
+    <div class="row">
+        <div class="col-md-8">
 
             <div class="form-group">
                 <label for="datepicker" class="col-sm-3 control-label">Pick a date</label>
+                @*@Html.LabelFor(model => model.ForDay, new { @class = "control-label col-sm-3" })*@
                 <div class="col-sm-9">
                     <div class="input-group date datepicker-inline" id="datepicker">
-                        <input type="text" class="form-control" id="dateInput" />
+                        @Html.TextBoxFor(model => model.ForDay, "{0:dd/MM/yyyy}", new { @class = "form-control dateInput" })
+                        @*<input type="text" class="form-control" id="dateInput" />*@
                         <span class="input-group-addon" id="basic-addon1">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div>
+                    @Html.ValidationMessageFor(m => m.ForDay, "", new { @class = "text-danger" }, "Date")
                 </div>
             </div>
             <div class="form-group">
@@ -65,24 +75,24 @@
                 </div>
             </div>
 
-            @*<div class="form-group">
-                    <div class="col-md-offset-3 col-md-9">
-                        <input type="submit" value="Generate" class="btn btn-success" />
-                    </div>
-                </div>*@
             <div class="form-group">
                 <div class="col-sm-offset-3 col-md-9">
                     <button class="btn btn-primary" id="btnGenerate">Generate</button>
                     <button class="btn btn-success" style="display:none" id="btnSave">Save</button>
                 </div>
             </div>
-        </form>
+
+        </div>
     </div>
-</div>
+
+    <div id="meals">
+    </div>
+}
+
+
 <div class="lds-hourglass col-sm-offset-2" id="loading" style="display:none"></div>
 
-<div id="meals">
-</div>
+
 
 @section scripts {
     <script>
@@ -94,8 +104,26 @@
             $("#loading").hide();
         });
 
+        const dateFormat = "dd-mm-yyyy"
+        //jQuery.validator.addMethod(
+        //'date',
+        //function (value, element, params) {
+        //    if (this.optional(element)) {
+        //        return true;
+        //    };
+        //    var result = false;
+        //    try {
+        //        $.datepicker.parseDate(dateFormat, value);
+        //        result = true;
+        //    } catch (err) {
+        //        result = false;
+        //    }
+        //    return result;
+        //},
+        //'')
+
         $('#datepicker').datepicker({
-            format: "dd/mm/yyyy",
+            format:dateFormat,
             autoclose: true,
             startDate: new Date()
         });
@@ -110,7 +138,7 @@
         });
 
 
-        $('#dateInput').css({
+        $('.dateInput').css({
             width: $('#noMeals').css('width')
         });
 
@@ -131,5 +159,9 @@
             })
 
         });
+
+
     </script>
+
+    @Scripts.Render("~/bundles/jqueryval")
 }

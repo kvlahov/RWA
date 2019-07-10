@@ -12,49 +12,63 @@ namespace Hybrid.Controllers
 {
     public class MenuController : Controller
     {
-        IRepository repo = RepoFactory.GetRepository();
+        private IRepository repo = RepoFactory.GetRepository();
         public ActionResult Generate()
         {
-            return View(repo.GetMealNames(3).ToList());
+            return View(new MenuViewModel());
         }
 
         public ActionResult GenerateMeals(int noOfMeals)
         {
+            var user = repo.GetUser(User.Identity.GetUserId());
+            var userCalories = user.GetCalorieIntake();
             MenuViewModel menu = new MenuViewModel()
             {
-                Meals = new List<Meal>()
+                Meals = new List<Meal>(),
+                User = user
             };
 
-            var userCalories = repo.GetUser(User.Identity.GetUserId()).GetCalorieIntake();
             foreach (var npm in repo.GetNutrientsPerMeal(noOfMeals))
             {
                 Meal meal = new Meal
                 {
                     CaloriePercent = npm.PercentCalorie,
-                    Name = npm.MealName
+                    Name = npm.MealName,
+                    MealNameId = npm.MealId,
+                    Ingredients = new List<IngredientViewModel>()
                 };
-
-                var ingUnits = new Dictionary<Ingredient, IList<UnitEnergy>>();
 
                 repo.GetAllIngredientTypes().ToList()
                     .ForEach(entry =>
                     {
                         var ing = repo.GetRandomIngredient(entry.Value);
-                        //var ing = repo.GetIngredient(1);
                         var units = repo.GetUnitsOfMesurement(ing.Id);
-                        units
-                        .ToList()
-                        .ForEach(u => u.UpdateEnergyValues(npm.GetCalorieForType(entry.Key, userCalories)));
-                        ingUnits.Add(ing, units);
+
+                        var ingViewModel = new IngredientViewModel();
+                        ingViewModel.BindIngredient(ing);
+                        ingViewModel.BaseUnitEnergy = units;
+
+                        var calorieForType = npm.GetCalorieForType(ingViewModel.Type, userCalories);
+
+                        ingViewModel.FillCalculatedEnergyList(calorieForType);
+
+                        meal.Ingredients.Add(ingViewModel);
                     });
-                meal.IngredientEnergy = ingUnits;
 
                 menu.Meals.Add(meal);
             }
 
-            ViewBag.types = repo.GetAllIngredientTypes();
             ViewBag.userCalories = userCalories;
-            return PartialView("_Meals", menu);
+            return PartialView("_Menu", menu);
+        }
+
+        public ActionResult Save(MenuViewModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                var m = model;
+            }
+            return RedirectToAction("Index", "User");
         }
     }
 }

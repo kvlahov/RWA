@@ -8,16 +8,22 @@ namespace Hybrid.Models
 {
     public class UnitEnergy
     {
-        public UnitOfMesurement Unit { get; set; }
-        [DisplayFormat(DataFormatString = "{0:#,##0.000#}", ApplyFormatInEditMode = true)]
-        public double Kcal { get; set; }
         [DisplayFormat(DataFormatString = "{0:#,##0.000#}", ApplyFormatInEditMode = true)]
         public double Value { get; set; }
 
-        internal void UpdateEnergyValues(double calculatedCalorie)
+        public UnitOfMesurement Unit { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:#,##0.000#}", ApplyFormatInEditMode = true)]
+        public double Kcal { get; set; }
+
+        internal UnitEnergy CalculateEnergy(double calculatedCalorie)
         {
-            Value = calculatedCalorie / Kcal * Value;
-            Kcal = calculatedCalorie;
+            return new UnitEnergy
+            {
+                Unit = this.Unit,
+                Value = calculatedCalorie / this.Kcal * this.Value,
+                Kcal = calculatedCalorie
+            };
         }
     }
 }

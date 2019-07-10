@@ -1,0 +1,15 @@
+﻿@model Hybrid.Models.IngredientViewModel
+
+@Html.HiddenFor(m => m.Id)
+@Html.HiddenFor(m => m.TypeId)
+<td>@Html.DisplayFor(m => m.Name)</td>
+<td>@Html.DisplayFor(m => m.Type)</td>
+<td>
+    @Html.DropDownListFor(m => m.CalculatedUnitEnergy.First().Value, new SelectList(Model.CalculatedUnitEnergy))
+</td>
+
+@for (int i = 0; i < Model.CalculatedUnitEnergy.Count; i++)
+{
+    @Html.HiddenFor(m => m.CalculatedUnitEnergy[i].Unit.Id)
+    @Html.HiddenFor(m => m.CalculatedUnitEnergy[i].Value)
+}

@@ -1,0 +1,40 @@
+﻿@model Hybrid.Models.Meal
+
+@{
+    var no = (int)ViewBag.counter;
+}
+
+@Html.HiddenFor(m => m.MealNameId)
+<tr>
+    <th rowspan="3" style="vertical-align:middle !important" scope="row">@(no + 1)</th>
+    <td rowspan="3" style="vertical-align:middle !important">@Html.DisplayFor(m => m.Name)</td>
+
+    @for (int i = 0; i < Model.Ingredients.Count; i++)
+    {
+        if (i == 0)
+        {
+            @*@Html.Partial("_Ingredient", Model.Ingredients[i], new ViewDataDictionary(ViewData)
+                {
+                    TemplateInfo = new System.Web.Mvc.TemplateInfo
+                    {
+                        HtmlFieldPrefix = "IngredientViewModel"
+                    }
+                })*@
+            @Html.DisplayFor(m => m.Ingredients[i])
+        }
+        else
+        {
+        <tr>
+            @*@Html.Partial("_Ingredient", Model.Ingredients[i], new ViewDataDictionary(ViewData)
+                {
+                    TemplateInfo = new System.Web.Mvc.TemplateInfo
+                    {
+                        HtmlFieldPrefix = "IngredientViewModel"
+                    }
+                })*@
+            @Html.DisplayFor(m => m.Ingredients[i])
+
+        </tr>
+    }
+}
+
