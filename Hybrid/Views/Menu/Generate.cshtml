@@ -26,7 +26,7 @@
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
                     </div>
-                    @Html.ValidationMessageFor(m => m.ForDay, "", new { @class = "text-danger" }, "Date")
+                    @Html.ValidationMessageFor(m => m.ForDay, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
@@ -118,7 +118,7 @@
             format:dateFormat,
             autoclose: true,
             startDate: new Date(),
-            datesDisabled: @Html.Raw(Json.Encode(dates.ToArray()))
+            datesDisabled: @Html.Raw(Json.Encode(dates.Select(d => d.ToString("dd-MM-yyyy")).ToArray()))
         });
 
         $(".checkbox-menu").on("change", "input[type='checkbox']", function () {
