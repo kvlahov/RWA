@@ -48,7 +48,7 @@ else
     <script>
         function showMenuAjax(value) {
             console.log(value)
-            $('#menu').fadeOut(500);
+            $('#menu').hide();
             $.ajax({
                     url: '@Url.Action("ActiveMenu")',
                     method: 'GET',

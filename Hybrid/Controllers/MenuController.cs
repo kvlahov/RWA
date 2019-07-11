@@ -27,9 +27,12 @@ namespace Hybrid.Controllers
                 }
             }
 
-            ViewBag.startDate = startDate;
             ViewBag.dates = dates;
-            return View(new MenuViewModel());
+            var menu = new MenuViewModel()
+            {
+                ForDay = startDate
+            };
+            return View(menu);
         }
 
         [HttpPost]
@@ -139,7 +142,7 @@ namespace Hybrid.Controllers
             if (ModelState.IsValid)
             {
                 model.User = repo.GetUser(User.Identity.GetUserId());
-                //repo.InsertMenu(model);
+                repo.InsertMenu(model);
             }
             return RedirectToAction("Index", "User");
         }
