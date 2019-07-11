@@ -15,6 +15,20 @@ namespace Hybrid.Controllers
         private readonly IRepository repo = RepoFactory.GetRepository();
         public ActionResult Generate()
         {
+            var user = repo.GetUser(User.Identity.GetUserId());
+            var dates = repo.GetDatesForMenus(user.Id).Where(date => date.Date >= DateTime.Today).ToList();
+
+            DateTime startDate = DateTime.Today;
+            if (dates != null || dates.Contains(DateTime.Today))
+            {
+                while (dates.Contains(startDate))
+                {
+                    startDate = startDate.AddDays(1);
+                }
+            }
+
+            ViewBag.startDate = startDate;
+            ViewBag.dates = dates;
             return View(new MenuViewModel());
         }
 

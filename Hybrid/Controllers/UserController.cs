@@ -19,7 +19,7 @@ namespace Hybrid.Controllers
         public ActionResult Index()
         {
             var user = repo.GetUser(User.Identity.GetUserId());
-            var dates = repo.GetDatesForMenus(user.Id);
+            var dates = repo.GetDatesForMenus(user.Id).Where(date => date.Date >= DateTime.Today).ToList();
 
             ViewBag.userName = user.Name;
             return View(dates);

@@ -4,6 +4,8 @@
 
 @{
     ViewBag.Title = "Generate";
+    var dates = ViewBag.dates as List<DateTime>;
+    var startDate = (DateTime)ViewBag.startDate;
 }
 
 
@@ -17,7 +19,6 @@
 
             <div class="form-group">
                 <label for="datepicker" class="col-sm-3 control-label">Pick a date</label>
-                @*@Html.LabelFor(model => model.ForDay, new { @class = "control-label col-sm-3" })*@
                 <div class="col-sm-9">
                     <div class="input-group date datepicker-inline" id="datepicker">
                         @Html.TextBoxFor(model => model.ForDay, "{0:dd/MM/yyyy}", new { @class = "form-control dateInput", @readonly = "readonly" })
@@ -104,7 +105,8 @@
         $('#datepicker').datepicker({
             format:dateFormat,
             autoclose: true,
-            startDate: new Date()
+            startDate: new Date(Date.parse("15-07-2019")),
+            datesDisabled: @Html.Raw(Json.Encode(dates.ToArray()))
         });
 
         $(".checkbox-menu").on("change", "input[type='checkbox']", function () {
