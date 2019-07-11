@@ -202,6 +202,7 @@
     <Compile Include="Models\DAL\IRepository.cs" />
     <Compile Include="Models\DAL\RepoFactory.cs" />
     <Compile Include="Models\DAL\SQLRepo.cs" />
+    <Compile Include="Models\Extensions\EnumExtensions.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Ingredient.cs" />
     <Compile Include="Models\Enums\IngredientType.cs" />
@@ -394,6 +395,7 @@
     <Content Include="Views\Menu\DisplayTemplates\Meal.cshtml" />
     <Content Include="Views\Shared\_Loader.cshtml" />
     <Content Include="Views\Shared\_ExcludeModal.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
