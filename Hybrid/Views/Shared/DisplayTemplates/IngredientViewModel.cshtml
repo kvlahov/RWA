@@ -7,7 +7,7 @@
 <td>
     @if (Model.CalculatedUnitEnergy.Count > 1)
     {
-        @Html.DropDownListFor(m => m.CalculatedUnitEnergy.First().Value, new SelectList(Model.CalculatedUnitEnergy, "Value", "DisplayValue"), new { @class="form-control" })
+        @Html.DropDownListFor(m => m.CalculatedUnitEnergy.First().Value, new SelectList(Model.CalculatedUnitEnergy, "Value", "DisplayValue"), new { @class="form-control unit-of-mesurement" })
     }
     else
     {

@@ -192,6 +192,7 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Filters\SetupRedirectFilter.cs" />
     <Compile Include="Global.asax.cs">
@@ -392,9 +393,11 @@
     <Content Include="Views\Menu\DisplayTemplates\IngredientViewModel.cshtml" />
     <Content Include="Views\Menu\DisplayTemplates\Meal.cshtml" />
     <Content Include="Views\Shared\_Loader.cshtml" />
+    <Content Include="Views\Shared\_ExcludeModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Settings\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
