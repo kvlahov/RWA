@@ -1,27 +1,55 @@
 ﻿@using Hybrid.Models
 @using Hybrid.Models.Enums
 
-@model IDictionary<IngredientType, Ingredient>
+@*@model IDictionary<IngredientType, Ingredient>*@
 
-<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+<button id="btnExclude" type="button" class="btn btn-info" @*data-toggle="modal" data-target="#excludeModal"*@>Exclude Ingredients</button>
 
 <!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+<div id="excludeModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
 
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Modal Header</h4>
+                <h4 class="modal-title">Exclude ingredients:</h4>
             </div>
-            <div class="modal-body">
-                <p>Some text in the modal.</p>
+            <div class="modal-body row">
+                <div class="col-sm-6" id="allIngs">
+                </div>
+                <div class="col-sm-6 ">
+
+                </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>*@
         </div>
 
     </div>
 </div>
+
+@*<script>
+
+        $("#excludeModal").on("shown.bs.modal", function () {  //Tell what to do on modal open
+                 $(this).find('.modal-body').append('success')
+        }).modal('show')
+
+        $('#btnExclude').on('click', function () {
+            console.log("entered")
+            $('#excludeModal').modal('show');
+        
+
+            $.ajax({
+                url: '@Url.Action("FillExclusionAccordion", "Settings")',
+                method: 'GET',
+                cache: false,
+                dataType: 'html',
+                success: function (partialView) {
+                    $("#allIngs").html(partialView).fadeIn(800);
+                }
+            });
+        });
+    </script>
+*@

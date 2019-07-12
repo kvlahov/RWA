@@ -1,0 +1,95 @@
+﻿@using Hybrid.Models
+
+@model IList<Ingredient>
+
+<style>
+    .panel-heading, .panel-body {
+        padding:0;
+    }
+    .list-group {
+        margin-bottom:0;
+    }
+    .header-dark {
+        color: #fff !important;
+        font-weight:bold;
+        background-color: #212529;
+        position: relative;
+        display: block;
+        text-decoration:none;
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+    }
+    .panel-body {
+        overflow-y: auto;
+        max-height: 50vh;
+    }
+
+    .header-dark:hover, 
+    .header-dark:active, 
+    .header-dark:visited,
+    .header-dark:link
+    {
+        text-decoration:none;
+    }
+</style>
+
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" class="header-dark">
+                    Ugljikohidrati
+                </a>
+            </h4>
+        </div>
+        <div id="collapse1" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <div class="list-group">
+                    @for (var i = 0; i < Model.Where(ing => ing.TypeId == 1).Count(); i++)
+                    {
+                        @Html.HiddenFor(m => m.Where(ing => ing.TypeId == 1).ToList()[i].Id)
+                        <a href="#" class="list-group-item">@Model.Where(ing => ing.TypeId == 1).ToList()[i].Name</a>
+                    }
+                    @*<a href="#" class="list-group-item">Second item</a>
+                    <a href="#" class="list-group-item">Third item</a>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse2"  class="header-dark">
+                    Proteini
+                </a>
+            </h4>
+        </div>
+        <div id="collapse2" class="panel-collapse collapse">
+            <div class="panel-body">
+                @for (var i = 0; i < Model.Where(ing => ing.TypeId == 2).Count(); i++)
+                {
+                    @Html.HiddenFor(m => m.Where(ing => ing.TypeId == 2).ToList()[i].Id)
+                    <a href="#" class="list-group-item">@Model.Where(ing => ing.TypeId == 2).ToList()[i].Name</a>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapse3"  class="header-dark">
+                    Masti
+                </a>
+            </h4>
+        </div>
+        <div id="collapse3" class="panel-collapse collapse">
+            <div class="panel-body">
+                @for (var i = 0; i < Model.Where(ing => ing.TypeId == 3).Count(); i++)
+                {
+                    @Html.HiddenFor(m => m.Where(ing => ing.TypeId == 3).ToList()[i].Id)
+                    <a href="#" class="list-group-item">@Model.Where(ing => ing.TypeId == 3).ToList()[i].Name</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -51,7 +51,19 @@ namespace Hybrid.Models.DAL
 
         public IList<Ingredient> GetAllIngredients()
         {
-            throw new NotImplementedException();
+            ds = SqlHelper.ExecuteDataset(cs, "getAllIngredients");
+            var ings = new List<Ingredient>();
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                ings.Add(new Ingredient
+                {
+                    Id = (int)row["IDIngredient"],
+                    Name = row["Name"].ToString(),
+                    TypeId = (int)row["IngredientTypeID"]
+
+                });
+            }
+            return ings;
         }
 
         public IList<UnitEnergy> GetUnitsOfMesurement(int ingredientId)
@@ -276,6 +288,21 @@ namespace Hybrid.Models.DAL
                 dates.Add(DateTime.Parse(row["ForDay"].ToString()));
             }
             return dates;
+        }
+
+        public IList<Ingredient> GetExcludedIngredients(int userID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertExcludedIngredients(IList<int> excludedIngredientsID, int userID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveExcludedIngredients(IList<int> excludedIngredientsID, int userID)
+        {
+            throw new NotImplementedException();
         }
     }
 }

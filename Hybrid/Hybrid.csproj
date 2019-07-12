@@ -396,6 +396,7 @@
     <Content Include="Views\Shared\_Loader.cshtml" />
     <Content Include="Views\Shared\_ExcludeModal.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
+    <Content Include="Views\Shared\_IngredientAccordion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

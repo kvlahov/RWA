@@ -20,7 +20,7 @@
                 <label for="datepicker" class="col-sm-3 control-label">Pick a date</label>
                 <div class="col-sm-9">
                     <div class="input-group date datepicker-inline" id="datepicker">
-                        @Html.TextBoxFor(model => model.ForDay, "{0:dd-MM-yyyy}" ,new { @class = "form-control dateInput", @readonly = "readonly" })
+                        @Html.TextBoxFor(model => model.ForDay, "{0:dd-MM-yyyy}", new { @class = "form-control dateInput", @readonly = "readonly" })
                         @*<input type="text" class="form-control" id="dateInput" />*@
                         <span class="input-group-addon" id="basic-addon1">
                             <span class="glyphicon glyphicon-calendar"></span>
@@ -72,9 +72,10 @@
 
                         </ul>
                     </div>
-                </div>
-            </div>
 
+                </div>
+                @Html.Partial("_ExcludeModal")
+            </div>
             <div class="form-group">
                 <div class="col-sm-offset-3 col-md-9">
                     <button class="btn btn-primary" id="btnGenerate">Generate</button>
@@ -98,9 +99,10 @@
     <script>
         const dateFormat = "dd-mm-yyyy"
 
+        //date validation
         $.validator.addMethod(
             "myDate",
-            function (value, element) {                
+            function (value, element) {
                 return this.optional(element) || /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/.test(value);
             },
             "Please enter a date in the format dd-mm-yyyy."
@@ -114,6 +116,7 @@
             }
         });
 
+        //date picker config
         $('#datepicker').datepicker({
             format:dateFormat,
             autoclose: true,
@@ -121,6 +124,11 @@
             datesDisabled: @Html.Raw(Json.Encode(dates.Select(d => d.ToString("dd-MM-yyyy")).ToArray()))
         });
 
+        $('.dateInput').css({
+            width: $('#noMeals').css('width')
+        });
+
+        //excluison ddl
         $(".checkbox-menu").on("change", "input[type='checkbox']", function () {
             $(this).closest("li").toggleClass("active", this.checked);
         });
@@ -129,22 +137,12 @@
             e.stopPropagation();
         });
 
-
-        $('.dateInput').css({
-            width: $('#noMeals').css('width')
-        });
-
-        @*$('#btnSave').click(function (e) {
-             $('#menuForm').attr('action', '@Url.Action("Save")');
-        });*@
-
         function updateCheckboxes() {
             $(':checkbox', '#meals').each((i, el) => {
                 if ($(el).prop('checked')) {
                     $(el).trigger('change');
                 }
             })
-
         }
 
         $('#btnGenerate').click((e) => {
@@ -153,34 +151,34 @@
             $('#meals').hide();
             $('#btnSave').fadeOut(200);
             $.ajax({
-                    url: '@Url.Action("GenerateMeals")',
-                    method: 'POST',
-                    cache: false,
-                    dataType: 'html',
-                    data: $('#menuForm').serialize(),
-                    success: function (partialView) {
-                        $("#meals").html(partialView).fadeIn(800);
-                        $('#btnSave').fadeIn(100);
-                        updateCheckboxes();
-                    }
-            })
-
-
-             @*$.ajax({
-                url: "@Url.Action("GenerateMeals")",
-                type: "POST",
-                data: JSON.stringify(jsonObject),
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                error: function (response) {
-                    alert(response.responseText);
-                },
-                success: function (response) {
-                    alert(response);
+                url: '@Url.Action("GenerateMeals")',
+                method: 'POST',
+                cache: false,
+                dataType: 'html',
+                data: $('#menuForm').serialize(),
+                success: function (partialView) {
+                    $("#meals").html(partialView).fadeIn(800);
+                    $('#btnSave').fadeIn(100);
+                    updateCheckboxes();
                 }
-            });*@
-
+            });
         });
+
+            $('#btnExclude').on('click', function () {
+                console.log("entered")
+
+                $.ajax({
+                    url: '@Url.Action("FillAccordion", "Settings")',
+                    method: 'GET',
+                    cache: false,
+                    data: { },
+                    dataType: 'html',
+                    success: function (partialView) {
+                        $("#allIngs").html(partialView).fadeIn(800);
+                        $('#excludeModal').modal('show');
+                    }
+                });
+            });
 
     </script>
 
