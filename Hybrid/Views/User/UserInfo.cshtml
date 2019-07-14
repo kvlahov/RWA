@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "UserInfo";
     var activity = ViewBag.activity as LevelOfActivity;
+    var showModal = Convert.ToBoolean(TempData["showModal"]);
 }
 
 <h2>User Info</h2>
@@ -81,3 +82,29 @@
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
 </p>
+@Html.Partial("_ExcludeModal")
+
+
+@section scripts {
+    <script>
+         $('#btnExclude').on('click', function () {
+                console.log("entered")
+
+                $.ajax({
+                    url: '@Url.Action("FillAccordion", "Settings")',
+                    method: 'GET',
+                    cache: false,
+                    data: { },
+                    dataType: 'html',
+                    success: function (partialView) {
+                        $("#allIngs").html(partialView).fadeIn(800);
+                        $('#excludeModal').modal('show');
+                    }
+                });
+         });
+
+        if (@showModal.ToString().ToLower()) {
+            $('#btnExclude').trigger('click');
+        }
+    </script> 
+}
