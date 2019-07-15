@@ -13,6 +13,24 @@ namespace AdminSite {
     public partial class _Default {
         
         /// <summary>
+        /// mngData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink mngData;
+        
+        /// <summary>
+        /// mngUsers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink mngUsers;
+        
+        /// <summary>
         /// output control.
         /// </summary>
         /// <remarks>

@@ -62,8 +62,12 @@ namespace Hybrid.Controllers
 
         }
 
-        public ActionResult UserInfo()
+        public ActionResult UserInfo(bool? showModal)
         {
+            if(showModal != null)
+            {
+                TempData["showModal"] = showModal;
+            }
             var user = repo.GetUser(User.Identity.GetUserId());
             ViewBag.activity = repo.GetLvlsOfActivity().Where(x => x.Id == user.LevelOfActivityID).First();
             return View(user);
