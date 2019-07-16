@@ -29,5 +29,6 @@ namespace Hybrid.Models.DAL
         IList<Ingredient> GetExcludedIngredients(int userID);
         void InsertExcludedIngredients(IList<int> excludedIngredientsID, int userID);
         void RemoveExcludedIngredients(IList<int> excludedIngredientsID, int userID);
+        IList<UnitOfMesurement> GetUnitTypes();
     }
 }

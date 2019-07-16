@@ -304,5 +304,14 @@ namespace Hybrid.Models.DAL
         {
             throw new NotImplementedException();
         }
+
+        public IList<UnitOfMesurement> GetUnitTypes()
+        {
+            return new List<UnitOfMesurement> {
+                new UnitOfMesurement{Id=1, Type="g"},
+                new UnitOfMesurement{Id=2, Type="cup"},
+                new UnitOfMesurement{Id=3, Type="ml"},
+            };
+        }
     }
 }

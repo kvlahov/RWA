@@ -5,7 +5,7 @@
     <div class="jumbotron">
         <div class="row">
             <div class="col-sm-6 admin-menu-item">
-                <asp:HyperLink ID="mngData" NavigateUrl="./ManageUsers.aspx" runat="server">
+                <asp:HyperLink ID="mngData" NavigateUrl="./ManageData.aspx" runat="server">
                         <span class="glyphicon glyphicon-edit"></span>
                 </asp:HyperLink>
                 <div class="row">
@@ -20,7 +20,6 @@
                 <div class="row">
                     <label>Manage Users</label>
                 </div>
-
             </div>
         </div>
     </div>
