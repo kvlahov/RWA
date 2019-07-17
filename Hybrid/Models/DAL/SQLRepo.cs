@@ -117,28 +117,13 @@ namespace Hybrid.Models.DAL
             };
         }
 
-        public IDictionary<IngredientType, int> GetAllIngredientTypes()
+        public IDictionary<string, int> GetAllIngredientTypes()
         {
             ds = SqlHelper.ExecuteDataset(cs, "getAllIngredientTypes");
-            var types = new Dictionary<IngredientType, int>();
-            IngredientType ingType = IngredientType.Other;
+            var types = new Dictionary<string, int>();
             foreach (DataRow row in ds.Tables[0].Rows)
             {
-                switch (row["Type"].ToString())
-                {
-                    case "Ugljikohidrati":
-                        ingType = IngredientType.Carbs;
-                        break;
-                    case "Proteini":
-                        ingType = IngredientType.Protein;
-                        break;
-                    case "Masti":
-                        ingType = IngredientType.Fat;
-                        break;
-                    default:
-                        break;
-                }
-                types.Add(ingType, (int)row["IDIngredientType"]);
+                types.Add(row["Type"].ToString(), (int)row["IDIngredientType"]);
             }
             return types;
         }

@@ -25,5 +25,4 @@
         </div>
     </div>
     <asp:PlaceHolder ID="phUserControls" runat="server"></asp:PlaceHolder>
-    <%--<units:UnitsControl runat="server" ID="MyControl"></units:UnitsControl>--%>
 </asp:Content>

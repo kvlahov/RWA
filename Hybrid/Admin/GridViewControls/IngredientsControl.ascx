@@ -67,13 +67,16 @@
     AllowSorting="true" CssClass="table table-striped" AllowPaging="true"
     PageSize="20" OnPageIndexChanging="GwIngredients_PageIndexChanging"
     OnRowCancelingEdit="GwIngredients_RowCancelingEdit" 
-    OnRowEditing="GwIngredients_RowEditing" OnSorting="GwIngredients_Sorting">
+    OnRowEditing="GwIngredients_RowEditing" OnSorting="GwIngredients_Sorting" OnRowDataBound="GwIngredients_RowDataBound">
     <HeaderStyle CssClass="thead-dark" />
     <Columns>
         <asp:BoundField DataField="Id" HeaderText="ID" ReadOnly="true" SortExpression="Id"/>
         <asp:BoundField DataField="Name" HeaderText="Ingredient" SortExpression="Ingredient"/>
         <asp:TemplateField HeaderText="Type" SortExpression="Type" >
             <ItemTemplate><%# Eval("Type") %></ItemTemplate>
+            <EditItemTemplate>
+                <asp:DropDownList ID="DdlIngredientType" runat="server"></asp:DropDownList>
+            </EditItemTemplate>
         </asp:TemplateField>
 
         <asp:CommandField ButtonType="Link" ShowEditButton="true" ShowDeleteButton="true"

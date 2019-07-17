@@ -82,5 +82,25 @@ namespace Hybrid.Admin.GridViewControls
             }
             return newSortDirection;
         }
+
+        protected void GwIngredients_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                if ((e.Row.RowState & DataControlRowState.Edit) > 0)
+                {
+                    DropDownList ddList = (DropDownList)e.Row.FindControl("DdlIngredientType");
+                    //bind dropdown-list
+                    ddList.DataSource = repo.GetAll();
+                    ddList.DataTextField = "Type";
+                    ddList.DataValueField = "Id";
+                    ddList.DataBind();
+
+                    var selection = DataBinder.Eval(e.Row.DataItem, "Unit.Type").ToString();
+                    ddList.Items.FindByText(selection).Selected = true;
+
+                }
+            }
+        }
     }
 }
