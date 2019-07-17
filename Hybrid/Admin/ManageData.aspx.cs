@@ -71,7 +71,7 @@ namespace Hybrid.Admin
         private void AddMealsControl()
         {
             Control control = LoadControl("./GridViewControls/MealsControl.ascx");
-            //control.ID = "meals";
+            control.ID = "meals";
             phUserControls.Controls.Add(control);
             IsMealsControlSet = true;
         }
@@ -79,7 +79,7 @@ namespace Hybrid.Admin
         private void AddIngredientControl()
         {
             Control control = LoadControl("./GridViewControls/IngredientsControl.ascx");
-            //control.ID = "ingredients";
+            control.ID = "ingredients";
             phUserControls.Controls.Add(control);
             IsIngredientsControlSet = true;
         }
@@ -87,7 +87,7 @@ namespace Hybrid.Admin
         private void AddUnitsControl()
         {
             Control control = LoadControl("./GridViewControls/UnitsControl.ascx");
-            //control.ID = "units";
+            control.ID = "units";
             phUserControls.Controls.Add(control);
             IsUnitsControlSet = true;
         }

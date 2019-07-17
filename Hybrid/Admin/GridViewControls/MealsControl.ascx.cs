@@ -12,11 +12,25 @@ namespace Hybrid.Admin.GridViewControls
     {
         private readonly static IRepository repo = RepoFactory.GetRepository();
 
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            if (ViewState["fillDdl"] == null)
+            {
+                
+                ViewState["fillDdl"] = false;
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            DdlNoOfMeals.DataSource = repo.GetNumberOfMeals();
-            DdlNoOfMeals.DataBind();
-            BindMeals();
+            if (ViewState["firstTime"] == null)
+            {
+                DdlNoOfMeals.DataSource = repo.GetNumberOfMeals();
+                DdlNoOfMeals.DataBind();
+                BindMeals();
+                ViewState["firstTime"] = false;
+            }
+
         }
 
         protected void DdlNoOfMeals_SelectedIndexChanged(object sender, EventArgs e)
