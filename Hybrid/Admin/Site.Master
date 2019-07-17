@@ -12,17 +12,21 @@
             font-size: 3rem;
         }
 
-        .admin-menu-item > a {
-            font-size: 8rem;
-            color: inherit;
-            text-decoration: none;
-        }
+            .admin-menu-item > a {
+                font-size: 8rem;
+                color: inherit;
+                text-decoration: none;
+            }
 
         div.body-content {
             margin-top: 20px;
         }
-
     </style>
+
+    <script src="../Scripts/jquery-3.3.1.min.js"></script>
+    <script src="../Scripts/jquery.validate.js"></script>
+    <script src="../Scripts/bootstrap.js"></script>
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -72,8 +76,6 @@
             </footer>
         </div>
     </form>
-    <script src="../Scripts/jquery-3.3.1.min.js"></script>
-    <script src="../Scripts/jquery.validate.js"></script>
-    <script src="../Scripts/bootstrap.js"></script>
+
 </body>
 </html>

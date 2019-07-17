@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -91,16 +92,28 @@ namespace Hybrid.Admin.GridViewControls
                 {
                     DropDownList ddList = (DropDownList)e.Row.FindControl("DdlIngredientType");
                     //bind dropdown-list
-                    ddList.DataSource = repo.GetAll();
-                    ddList.DataTextField = "Type";
-                    ddList.DataValueField = "Id";
+                    ddList.DataSource = repo.GetAllIngredientTypes();
+                    ddList.DataTextField = "Key";
+                    ddList.DataValueField = "Value";
                     ddList.DataBind();
 
-                    var selection = DataBinder.Eval(e.Row.DataItem, "Unit.Type").ToString();
+                    var selection = DataBinder.Eval(e.Row.DataItem, "Type").ToString();
                     ddList.Items.FindByText(selection).Selected = true;
 
+                    GwIngredients.EditIndex = -1;
                 }
             }
+        }
+
+        protected void GwIngredients_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {         
+            int ingredientId = Convert.ToInt32(GwIngredients.DataKeys[e.RowIndex].Value.ToString());
+            string name = ((TextBox) GwIngredients.Rows[e.RowIndex].FindControl("tbIngName")).Text.Trim();
+            
+            var ddl = (DropDownList)GwIngredients.Rows[e.RowIndex].FindControl("DdlIngredientType");
+            int typeId = Convert.ToInt32(ddl.SelectedValue);
+
+            Debug.WriteLine($"ingId: {ingredientId}; name: {name}; typeId = {typeId}");
         }
     }
 }

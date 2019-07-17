@@ -67,20 +67,25 @@
     AllowSorting="true" CssClass="table table-striped" AllowPaging="true"
     PageSize="20" OnPageIndexChanging="GwIngredients_PageIndexChanging"
     OnRowCancelingEdit="GwIngredients_RowCancelingEdit" 
-    OnRowEditing="GwIngredients_RowEditing" OnSorting="GwIngredients_Sorting" OnRowDataBound="GwIngredients_RowDataBound">
+    OnRowEditing="GwIngredients_RowEditing" OnSorting="GwIngredients_Sorting" DataKeyNames="Id" OnRowDataBound="GwIngredients_RowDataBound" OnRowUpdating="GwIngredients_RowUpdating">
     <HeaderStyle CssClass="thead-dark" />
     <Columns>
         <asp:BoundField DataField="Id" HeaderText="ID" ReadOnly="true" SortExpression="Id"/>
-        <asp:BoundField DataField="Name" HeaderText="Ingredient" SortExpression="Ingredient"/>
+        <asp:TemplateField HeaderText="Ingredient" SortExpression="Ingredient">
+            <ItemTemplate><%# Eval("Name") %></ItemTemplate>
+            <EditItemTemplate>
+                <asp:TextBox ID="tbIngName" runat="server" CssClass="form-control" Text='<%#Eval("Name") %>'></asp:TextBox>  
+            </EditItemTemplate>
+        </asp:TemplateField>
         <asp:TemplateField HeaderText="Type" SortExpression="Type" >
             <ItemTemplate><%# Eval("Type") %></ItemTemplate>
             <EditItemTemplate>
-                <asp:DropDownList ID="DdlIngredientType" runat="server"></asp:DropDownList>
+                <asp:DropDownList ID="DdlIngredientType" runat="server" CssClass="form-control"></asp:DropDownList>
             </EditItemTemplate>
         </asp:TemplateField>
 
         <asp:CommandField ButtonType="Link" ShowEditButton="true" ShowDeleteButton="true"
-            ItemStyle-Width="150" >
+            ItemStyle-Width="150" ShowInsertButton="true">
 <ItemStyle Width="150px"></ItemStyle>
         </asp:CommandField>
     </Columns>

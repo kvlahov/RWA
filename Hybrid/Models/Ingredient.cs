@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using Hybrid.Models.Extensions;
 namespace Hybrid.Models
 {
     public class Ingredient
@@ -11,9 +11,9 @@ namespace Hybrid.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int TypeId { get; set; }
-        public IngredientType Type {
+        public string Type {
             get {
-                return GetIngredientType();
+                return GetIngredientType().GetDisplayName();
             }
         }
 

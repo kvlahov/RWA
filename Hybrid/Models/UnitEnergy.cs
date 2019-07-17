@@ -8,6 +8,7 @@ namespace Hybrid.Models
 {
     public class UnitEnergy
     {
+        public int Id { get; set; }
         [DisplayFormat(DataFormatString = "{0:#,##0.000#}", ApplyFormatInEditMode = true)]
         public double Value { get; set; }
 

@@ -82,6 +82,7 @@ namespace Hybrid.Models.DAL
                     (
                         new UnitEnergy
                         {
+                            Id = (int)row["IDIngredientUnit"],
                             Kcal = Double.Parse(row["EnergyKcal"].ToString()),
                             Value = Double.Parse(row["Value"].ToString()),
                             Unit = unitOFMesurement
