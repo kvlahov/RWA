@@ -21,6 +21,10 @@
         div.body-content {
             margin-top: 20px;
         }
+
+        td, tr, th {
+            vertical-align:middle;
+        }
     </style>
 
     <script src="../Scripts/jquery-3.3.1.min.js"></script>
