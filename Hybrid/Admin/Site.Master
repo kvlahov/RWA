@@ -11,11 +11,17 @@
             text-align: center;
             font-size: 3rem;
         }
+
         .admin-menu-item > a {
             font-size: 8rem;
             color: inherit;
-            text-decoration:none;
+            text-decoration: none;
         }
+
+        div.body-content {
+            margin-top: 20px;
+        }
+
     </style>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>

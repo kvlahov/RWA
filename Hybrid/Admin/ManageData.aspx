@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/Site.Master" AutoEventWireup="true" CodeBehind="ManageData.aspx.cs" Inherits="Hybrid.Admin.ManageData" %>
 
 <%@ Register TagPrefix="units" TagName="UnitsControl" Src="GridViewControls/UnitsControl.ascx" %>
+<%@ Register TagPrefix="meals" TagName="MealsControl" Src="GridViewControls/MealsControl.ascx" %>
+<%@ Register TagPrefix="ings" TagName="IngredientsControl" Src="GridViewControls/IngredientsControl.ascx" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>Manage Data</title>
@@ -22,14 +24,6 @@
             </div>
         </div>
     </div>
-
-    <asp:GridView ID="DataGridView" runat="server" AllowSorting="true" AllowPaging="true" OnRowEditing="DataGridView_RowEditing" OnRowCancelingEdit="DataGridView_RowCancelingEdit" CssClass="table table-condensed">
-        <%-- <Columns>
-          <asp:BoundField DataField="Id" HeaderText="Id" ReadOnly="true"/>
-          <asp:BoundField DataField="Name" HeaderText="Ime"/>
-          <asp:BoundField DataField="TypeId" HeaderText="Tip"/>
-        </Columns>--%>
-    </asp:GridView>
-
-    <units:UnitsControl runat="server" ID="MyControl"></units:UnitsControl>
+    <asp:PlaceHolder ID="phUserControls" runat="server"></asp:PlaceHolder>
+    <%--<units:UnitsControl runat="server" ID="MyControl"></units:UnitsControl>--%>
 </asp:Content>

@@ -170,6 +170,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\GridViewControls\IngredientsControl.ascx.cs">
+      <DependentUpon>IngredientsControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\GridViewControls\IngredientsControl.ascx.designer.cs">
+      <DependentUpon>IngredientsControl.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\GridViewControls\MealsControl.ascx.cs">
+      <DependentUpon>MealsControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\GridViewControls\MealsControl.ascx.designer.cs">
+      <DependentUpon>MealsControl.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\GridViewControls\UnitsControl.ascx.cs">
       <DependentUpon>UnitsControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -395,6 +409,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\GridViewControls\IngredientsControl.ascx" />
+    <Content Include="Admin\GridViewControls\MealsControl.ascx" />
     <Content Include="Admin\GridViewControls\UnitsControl.ascx" />
     <Content Include="Admin\ManageData.aspx" />
     <Content Include="Content\bootstrap-datepicker.css" />

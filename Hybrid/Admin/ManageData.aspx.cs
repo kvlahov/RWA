@@ -11,9 +11,81 @@ namespace Hybrid.Admin
     public partial class ManageData : System.Web.UI.Page
     {
         private readonly static IRepository repo = RepoFactory.GetRepository();
+        private bool IsUnitsControlSet {
+            get {
+                if(ViewState["UnitsAdded"] == null)
+                {
+                    ViewState["UnitsAdded"] = false;
+                }
+                return (bool)ViewState["UnitsAdded"];
+            }
+            set {
+                ViewState["UnitsAdded"] = value;
+            }
+        }
+        private bool IsIngredientsControlSet {
+            get {
+                if (ViewState["IngredientAdded"] == null)
+                {
+                    ViewState["IngredientAdded"] = false;
+                }
+                return (bool)ViewState["IngredientAdded"];
+            }
+            set {
+                ViewState["IngredientAdded"] = value;
+            }
+        }
+        private bool IsMealsControlSet {
+            get {
+                if (ViewState["MealsAdded"] == null)
+                {
+                    ViewState["MealsAdded"] = false;
+                }
+                return (bool)ViewState["MealsAdded"];
+            }
+            set {
+                ViewState["MealsAdded"] = value;
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            GenerateIngredientColumns();
+            if (IsUnitsControlSet)
+            {
+                AddUnitsControl();
+            }
+            if(IsIngredientsControlSet)
+            {
+                AddIngredientControl();
+            }
+            if(IsMealsControlSet)
+            {
+                AddMealsControl();
+            }
+        }
+
+        private void AddMealsControl()
+        {
+            Control control = LoadControl("./GridViewControls/MealsControl.ascx");
+            //control.ID = "meals";
+            phUserControls.Controls.Add(control);
+            IsMealsControlSet = true;
+        }
+
+        private void AddIngredientControl()
+        {
+            Control control = LoadControl("./GridViewControls/IngredientsControl.ascx");
+            //control.ID = "ingredients";
+            phUserControls.Controls.Add(control);
+            IsIngredientsControlSet = true;
+        }
+
+        private void AddUnitsControl()
+        {
+            Control control = LoadControl("./GridViewControls/UnitsControl.ascx");
+            //control.ID = "units";
+            phUserControls.Controls.Add(control);
+            IsUnitsControlSet = true;
         }
 
         protected void DdlData_SelectedIndexChanged(object sender, EventArgs e)
@@ -21,148 +93,26 @@ namespace Hybrid.Admin
             switch (DdlData.SelectedValue)
             {
                 case "Ingredients":
-                    GenerateIngredientColumns();
+                    ClearControls();
+                    AddIngredientControl();
                     break;
                 case "Units":
-                    DataGridView.DataSource = repo.GetUnitsOfMesurement(1);
+                    ClearControls();
+                    AddUnitsControl();
                     break;
                 case "Meals":
-                    DataGridView.DataSource = repo.GetNutrientsPerMeal(3);
+                    ClearControls();
+                    AddMealsControl();
                     break;
             }
-            DataGridView.DataBind();
         }
 
-        protected void DataGridView_RowEditing(object sender, GridViewEditEventArgs e)
+        private void ClearControls()
         {
-            DataGridView.EditIndex = e.NewEditIndex;
-            GenerateIngredientColumns();
-        }
-
-        protected void DataGridView_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
-        {
-            DataGridView.EditIndex = -1;
-            GenerateIngredientColumns();
-        }
-
-        private void GenerateIngredientColumns()
-        {
-            DataGridView.DataSource = repo.GetAllIngredients();
-            DataGridView.AutoGenerateColumns = false;
-            DataGridView.DataKeyNames = new string[] { "Id" };
-            DataGridView.AllowPaging = true;
-            DataGridView.AllowSorting = true;
-            DataGridView.PageSize = 5;
-
-            BoundField bf1 = new BoundField();
-            BoundField bf2 = new BoundField();
-            BoundField bf3 = new BoundField();
-
-            bf1.HeaderText = "ID";
-            bf1.DataField = "Id";
-            bf1.ReadOnly = true;
-            bf1.SortExpression = "Id";
-
-            bf2.HeaderText = "Ingredient";
-            bf2.DataField = "Name";
-            bf2.SortExpression = "Name";
-
-            bf3.HeaderText = "Type";
-            bf3.DataField = "TypeId";
-            bf3.SortExpression = "TypeId";
-
-            CommandField cf = new CommandField();
-            cf.ButtonType = ButtonType.Button;
-            cf.ShowCancelButton = true;
-            cf.ShowEditButton = true;
-
-            DataGridView.Columns.Clear();
-            DataGridView.Columns.Add(bf1);
-            DataGridView.Columns.Add(bf2);
-            DataGridView.Columns.Add(bf3);
-            DataGridView.Columns.Add(cf);
-
-            DataGridView.DataBind();
-        }
-
-        private void GenerateMealsColumns()
-        {
-            DataGridView.DataSource = repo.GetNutrientsPerMeal(3);
-            DataGridView.AutoGenerateColumns = false;
-            DataGridView.DataKeyNames = new string[] { "Id" };
-            DataGridView.AllowPaging = true;
-            DataGridView.AllowSorting = true;
-            DataGridView.PageSize = 5;
-
-            BoundField bf1 = new BoundField();
-            BoundField bf2 = new BoundField();
-            BoundField bf3 = new BoundField();
-
-            bf1.HeaderText = "ID";
-            bf1.DataField = "Id";
-            bf1.ReadOnly = true;
-            bf1.SortExpression = "Id";
-
-            bf2.HeaderText = "Ingredient";
-            bf2.DataField = "Name";
-            bf2.SortExpression = "Name";
-
-            bf3.HeaderText = "Type";
-            bf3.DataField = "TypeId";
-            bf3.SortExpression = "TypeId";
-
-            CommandField cf = new CommandField();
-            cf.ButtonType = ButtonType.Button;
-            cf.ShowCancelButton = true;
-            cf.ShowEditButton = true;
-
-            DataGridView.Columns.Clear();
-            DataGridView.Columns.Add(bf1);
-            DataGridView.Columns.Add(bf2);
-            DataGridView.Columns.Add(bf3);
-            DataGridView.Columns.Add(cf);
-
-            DataGridView.DataBind();
-        }
-
-        private void GenerateUnitsColumns()
-        {
-            DataGridView.DataSource = repo.GetAllIngredients();
-            DataGridView.AutoGenerateColumns = false;
-            DataGridView.DataKeyNames = new string[] { "Id" };
-            DataGridView.AllowPaging = true;
-            DataGridView.AllowSorting = true;
-            DataGridView.PageSize = 5;
-
-            BoundField bf1 = new BoundField();
-            BoundField bf2 = new BoundField();
-            BoundField bf3 = new BoundField();
-
-            bf1.HeaderText = "ID";
-            bf1.DataField = "Id";
-            bf1.ReadOnly = true;
-            bf1.SortExpression = "Id";
-
-            bf2.HeaderText = "Ingredient";
-            bf2.DataField = "Name";
-            bf2.SortExpression = "Name";
-
-            bf3.HeaderText = "Type";
-            bf3.DataField = "TypeId";
-            bf3.SortExpression = "TypeId";
-
-            CommandField cf = new CommandField();
-            cf.ButtonType = ButtonType.Button;
-            cf.ShowCancelButton = true;
-            cf.ShowEditButton = true;
-
-            DataGridView.Columns.Clear();
-            DataGridView.Columns.Add(bf1);
-            DataGridView.Columns.Add(bf2);
-            DataGridView.Columns.Add(bf3);
-            DataGridView.Columns.Add(cf);
-
-            DataGridView.DataBind();
+            phUserControls.Controls.Clear();
+            IsIngredientsControlSet = false;
+            IsMealsControlSet = false;
+            IsUnitsControlSet = false;
         }
 
     }

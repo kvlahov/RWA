@@ -7,27 +7,27 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Hybrid.Admin {
+namespace Hybrid.Admin.GridViewControls {
     
     
-    public partial class ManageData {
+    public partial class MealsControl {
         
         /// <summary>
-        /// DdlData control.
+        /// DdlNoOfMeals control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DdlData;
+        protected global::System.Web.UI.WebControls.DropDownList DdlNoOfMeals;
         
         /// <summary>
-        /// phUserControls control.
+        /// GwMeals control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder phUserControls;
+        protected global::System.Web.UI.WebControls.GridView GwMeals;
     }
 }

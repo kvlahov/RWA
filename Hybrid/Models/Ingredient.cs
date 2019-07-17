@@ -11,6 +11,12 @@ namespace Hybrid.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int TypeId { get; set; }
+        public IngredientType Type {
+            get {
+                return GetIngredientType();
+            }
+        }
+
         public IngredientType GetIngredientType()
         {
             switch (TypeId)

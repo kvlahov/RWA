@@ -24,7 +24,7 @@
                 <%# Eval("Unit.Type")%>
             </ItemTemplate>
             <EditItemTemplate>
-                <asp:DropDownList ID="DdlUnitType" runat="server"></asp:DropDownList>
+                <asp:DropDownList ID="DdlUnitType" runat="server" CssClass="form-control"></asp:DropDownList>
             </EditItemTemplate>
         </asp:TemplateField>
         <%--<asp:TemplateField>

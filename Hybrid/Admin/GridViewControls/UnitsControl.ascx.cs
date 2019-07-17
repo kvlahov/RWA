@@ -22,8 +22,13 @@ namespace Hybrid.Admin.GridViewControls
                 DdlIngredients.DataValueField = "Id";
                 DdlIngredients.DataBind();
 
-                BindUnits();
             }
+            DdlIngredients.DataSource = repo.GetAllIngredients();
+            DdlIngredients.DataTextField = "Name";
+            DdlIngredients.DataValueField = "Id";
+            DdlIngredients.DataBind();
+
+            BindUnits();
         }
 
         protected void DdlIngredients_SelectedIndexChanged(object sender, EventArgs e)
