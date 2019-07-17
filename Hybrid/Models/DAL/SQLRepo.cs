@@ -299,5 +299,30 @@ namespace Hybrid.Models.DAL
                 new UnitOfMesurement{Id=3, Type="ml"},
             };
         }
+
+        public void UpdateIngredient(Ingredient newIng)
+        {
+            SqlHelper.ExecuteNonQuery(cs, "UpdateIngredient", newIng.Id, newIng.Name, newIng.TypeId);
+        }
+
+        public void UpdateNutrients(NutrientsPerMeal newNutrients)
+        {
+            SqlHelper.ExecuteNonQuery(cs, "UpdateNutrients", 
+                newNutrients.MealId,
+                newNutrients.MealName,
+                newNutrients.PercentCarbs, 
+                newNutrients.PercentFat, 
+                newNutrients.PercentProtein, 
+                newNutrients.PercentCalorie);
+        }
+
+        public void UpdateUnits(UnitEnergy newUnitEnergy)
+        {
+            SqlHelper.ExecuteNonQuery(cs, "UpdateUnitOfMesurement",
+                newUnitEnergy.Id,
+                newUnitEnergy.Value,
+                newUnitEnergy.Unit.Id,
+                newUnitEnergy.Kcal);
+        }
     }
 }

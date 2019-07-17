@@ -30,5 +30,9 @@ namespace Hybrid.Models.DAL
         void InsertExcludedIngredients(IList<int> excludedIngredientsID, int userID);
         void RemoveExcludedIngredients(IList<int> excludedIngredientsID, int userID);
         IList<UnitOfMesurement> GetUnitTypes();
+
+        void UpdateIngredient(Ingredient newIng);
+        void UpdateNutrients(NutrientsPerMeal newNutrients);
+        void UpdateUnits(UnitEnergy newUnitEnergy);
     }
 }
