@@ -76,6 +76,7 @@
             <ItemTemplate><%# Eval("Name") %></ItemTemplate>
             <EditItemTemplate>
                 <asp:TextBox ID="tbIngName" runat="server" CssClass="form-control" Text='<%#Eval("Name") %>'></asp:TextBox>  
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="tbIngName" runat="server" ErrorMessage="This field is required"></asp:RequiredFieldValidator>
             </EditItemTemplate>
         </asp:TemplateField>
 
