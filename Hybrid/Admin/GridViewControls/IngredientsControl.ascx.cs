@@ -107,13 +107,21 @@ namespace Hybrid.Admin.GridViewControls
 
         protected void GwIngredients_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {         
-            int ingredientId = Convert.ToInt32(GwIngredients.DataKeys[e.RowIndex].Value.ToString());
+            int id = Convert.ToInt32(GwIngredients.DataKeys[e.RowIndex].Value.ToString());
             string name = ((TextBox) GwIngredients.Rows[e.RowIndex].FindControl("tbIngName")).Text.Trim();
             
             var ddl = (DropDownList)GwIngredients.Rows[e.RowIndex].FindControl("DdlIngredientType");
             int typeId = Convert.ToInt32(ddl.SelectedValue);
 
-            Debug.WriteLine($"ingId: {ingredientId}; name: {name}; typeId = {typeId}");
+            repo.UpdateIngredient(new Models.Ingredient
+            {
+                Id = id,
+                Name = name,
+                TypeId = typeId
+            });
+
+            GwIngredients.EditIndex = -1;
+            BindIngredinets();
         }
     }
 }

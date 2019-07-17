@@ -14,11 +14,8 @@ namespace Hybrid.Admin.GridViewControls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            DdlNoOfMeals.Items.Clear();
-            for (int i = 0; i < 10; i++)
-            {
-                DdlNoOfMeals.Items.Add(new ListItem(i.ToString()));
-            }
+            DdlNoOfMeals.DataSource = repo.GetNumberOfMeals();
+            DdlNoOfMeals.DataBind();
             BindMeals();
         }
 
@@ -43,6 +40,31 @@ namespace Hybrid.Admin.GridViewControls
 
         protected void GwMeals_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
+            GwMeals.EditIndex = -1;
+            BindMeals();
+        }
+
+        protected void GwMeals_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            //int mealId = Convert.ToInt32(((HiddenField)GwMeals.Rows[e.RowIndex].FindControl("mealId")).Value);
+            int mealId = Convert.ToInt32(GwMeals.DataKeys[e.RowIndex].Value.ToString());
+
+            string mealName = ((TextBox)GwMeals.Rows[e.RowIndex].FindControl("tbMealName")).Text.Trim();
+            string protein = ((TextBox)GwMeals.Rows[e.RowIndex].FindControl("tbProtein")).Text.Trim();
+            string fat = ((TextBox)GwMeals.Rows[e.RowIndex].FindControl("tbFat")).Text.Trim();
+            string carbs = ((TextBox)GwMeals.Rows[e.RowIndex].FindControl("tbCarbs")).Text.Trim();
+            string calories = ((TextBox)GwMeals.Rows[e.RowIndex].FindControl("tbCalorie")).Text.Trim();
+
+            repo.UpdateNutrients(new Models.NutrientsPerMeal
+            {
+                MealId = mealId,
+                MealName = mealName,
+                PercentCarbs = Convert.ToDouble(carbs),
+                PercentFat = Convert.ToDouble(fat),
+                PercentProtein = Convert.ToDouble(protein),
+                PercentCalorie = Convert.ToDouble(calories)
+            });
+
             GwMeals.EditIndex = -1;
             BindMeals();
         }

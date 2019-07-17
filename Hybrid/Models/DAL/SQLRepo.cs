@@ -187,8 +187,8 @@ namespace Hybrid.Models.DAL
                 var meal = new NutrientsPerMeal();
 
                 meal.PercentCarbs = double.Parse(row["PercentageOfCarbs"].ToString());
-                meal.PercentFat = double.Parse(row["PercentageOfCarbs"].ToString());
-                meal.PercentProtein = double.Parse(row["PercentageOfCarbs"].ToString());
+                meal.PercentFat = double.Parse(row["PercentageOfFat"].ToString());
+                meal.PercentProtein = double.Parse(row["PercentageOfProtein"].ToString());
                 meal.MealId = (int)row["IDMealName"];
                 meal.MealName = row["Name"].ToString();
                 meal.OfMeals = int.Parse(row["OfMeals"].ToString());
@@ -323,6 +323,19 @@ namespace Hybrid.Models.DAL
                 newUnitEnergy.Value,
                 newUnitEnergy.Unit.Id,
                 newUnitEnergy.Kcal);
+        }
+
+        public IList<int> GetNumberOfMeals()
+        {
+            ds = SqlHelper.ExecuteDataset(cs, "GetNumberOfMeals");
+            var meals = new List<int>();
+
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                meals.Add((int)row["NoOfMeals"]);
+            }
+
+            return meals;
         }
     }
 }

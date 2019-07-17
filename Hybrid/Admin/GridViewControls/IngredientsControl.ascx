@@ -71,12 +71,14 @@
     <HeaderStyle CssClass="thead-dark" />
     <Columns>
         <asp:BoundField DataField="Id" HeaderText="ID" ReadOnly="true" SortExpression="Id"/>
+
         <asp:TemplateField HeaderText="Ingredient" SortExpression="Ingredient">
             <ItemTemplate><%# Eval("Name") %></ItemTemplate>
             <EditItemTemplate>
                 <asp:TextBox ID="tbIngName" runat="server" CssClass="form-control" Text='<%#Eval("Name") %>'></asp:TextBox>  
             </EditItemTemplate>
         </asp:TemplateField>
+
         <asp:TemplateField HeaderText="Type" SortExpression="Type" >
             <ItemTemplate><%# Eval("Type") %></ItemTemplate>
             <EditItemTemplate>
@@ -85,7 +87,7 @@
         </asp:TemplateField>
 
         <asp:CommandField ButtonType="Link" ShowEditButton="true" ShowDeleteButton="true"
-            ItemStyle-Width="150" ShowInsertButton="true">
+            ItemStyle-Width="150">
 <ItemStyle Width="150px"></ItemStyle>
         </asp:CommandField>
     </Columns>

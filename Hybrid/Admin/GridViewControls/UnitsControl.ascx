@@ -13,11 +13,24 @@
         </div>
     </div>
 </div>
-<asp:GridView ID="GwUnits" runat="server" AutoGenerateColumns="false" CssClass="table table-striped" OnRowCancelingEdit="GwUnits_RowCancelingEdit" OnRowEditing="GwUnits_RowEditing" OnRowDataBound="GwUnits_RowDataBound">
+<asp:GridView ID="GwUnits" runat="server" AutoGenerateColumns="false" DataKeyNames="Id" CssClass="table table-striped" OnRowCancelingEdit="GwUnits_RowCancelingEdit" OnRowEditing="GwUnits_RowEditing" OnRowDataBound="GwUnits_RowDataBound" OnRowUpdating="GwUnits_RowUpdating">
     <HeaderStyle CssClass="thead-dark" />
     <Columns>
-        <asp:BoundField DataField="Kcal" HeaderText="Calories" />
-        <asp:BoundField DataField="Value" HeaderText="Value" />
+        <asp:BoundField Visible="false" DataField="Id"/>
+
+        <asp:TemplateField HeaderText="Calories">
+            <ItemTemplate><%# Eval("Kcal") %></ItemTemplate>
+            <EditItemTemplate>
+                <asp:TextBox ID="tbKcal" runat="server" CssClass="form-control" Text='<%#Eval("Kcal") %>'></asp:TextBox>  
+            </EditItemTemplate>
+        </asp:TemplateField>
+        
+        <asp:TemplateField HeaderText="Value">
+            <ItemTemplate><%# Eval("Value") %></ItemTemplate>
+            <EditItemTemplate>
+                <asp:TextBox ID="tbValue" runat="server" CssClass="form-control" Text='<%#Eval("Value") %>'></asp:TextBox>  
+            </EditItemTemplate>
+        </asp:TemplateField>
 
         <asp:TemplateField HeaderText="Unit" SortExpression="Unit">
             <ItemTemplate>
@@ -27,15 +40,7 @@
                 <asp:DropDownList ID="DdlUnitType" runat="server" CssClass="form-control"></asp:DropDownList>
             </EditItemTemplate>
         </asp:TemplateField>
-        <%--<asp:TemplateField>
-            <ItemTemplate>
-                <asp:HyperLink ID="btn_Edit" runat="server" Text="Edit" CommandName="Edit"/>
-            </ItemTemplate>
-            <EditItemTemplate>
-                <asp:Button ID="btn_Update" runat="server" Text="Update" CommandName="Update" CssClass="btn btn-default"/>
-                <asp:Button ID="btn_Cancel" runat="server" Text="Cancel" CommandName="Cancel" CssClass="btn btn-default"/>
-            </EditItemTemplate>
-        </asp:TemplateField>--%>
+       
         <asp:CommandField ButtonType="Link" ShowEditButton="true" ShowDeleteButton="true"
                     ItemStyle-Width="150" />
     </Columns>

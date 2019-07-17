@@ -75,5 +75,29 @@ namespace Hybrid.Admin.GridViewControls
                 }
             }
         }
+
+        protected void GwUnits_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            int id = Convert.ToInt32(GwUnits.DataKeys[e.RowIndex].Value.ToString());
+            string kcal = ((TextBox)GwUnits.Rows[e.RowIndex].FindControl("tbKcal")).Text.Trim();
+            string value = ((TextBox)GwUnits.Rows[e.RowIndex].FindControl("tbValue")).Text.Trim();
+
+            var ddl = (DropDownList)GwUnits.Rows[e.RowIndex].FindControl("DdlUnitType");
+            int unitId = Convert.ToInt32(ddl.SelectedValue);
+
+            repo.UpdateUnits(new Models.UnitEnergy
+            {
+                Id = id,
+                Kcal = Convert.ToDouble(kcal),
+                Value = Convert.ToDouble(value),
+                Unit = new Models.UnitOfMesurement
+                {
+                    Id = unitId
+                }
+            });
+
+            GwUnits.EditIndex = -1;
+            BindUnits();
+        }
     }
 }
