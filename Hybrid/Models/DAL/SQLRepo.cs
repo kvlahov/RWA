@@ -33,7 +33,10 @@ namespace Hybrid.Models.DAL
 
         public void InsertIngredient(Ingredient ingredient)
         {
-            throw new NotImplementedException();
+            SqlHelper.ExecuteNonQuery(cs, "insertIngredient", 
+                ingredient.Name,
+                ingredient.TypeId
+            );
         }
 
         public Ingredient GetIngredient(int id)
@@ -336,6 +339,26 @@ namespace Hybrid.Models.DAL
             }
 
             return meals;
+        }
+
+        public void InsertUnitOfMesurement(UnitOfMesurement unit)
+        {
+            SqlHelper.ExecuteNonQuery(cs, "insertUnitOfMesurement", unit.Type);
+        }
+
+        public void InsertUnitEnergy(UnitEnergy unit, int ingID)
+        {
+            SqlHelper.ExecuteNonQuery(cs, "insertUnitOfMesurementForIngredient", 
+                unit.Value,
+                ingID,
+                unit.Unit.Id,
+                unit.Kcal
+                );
+        }
+
+        public void DeleteUnitEnergy(int rowID)
+        {
+            SqlHelper.ExecuteNonQuery(cs, "DeleteIngredientUnit", rowID);
         }
     }
 }

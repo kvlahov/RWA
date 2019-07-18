@@ -46,14 +46,17 @@ namespace Hybrid.Admin
             set {
                 ViewState["MealsAdded"] = value;
             }
-        }
+        }        
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
-                AddIngredientControl();
+                Control control = LoadControl("./GridViewControls/IngredientsControl.ascx");
+                //control.ID = "ingredients";
+                phUserControls.Controls.Add(control);
             }
+
             if (IsUnitsControlSet)
             {
                 AddUnitsControl();
@@ -79,7 +82,7 @@ namespace Hybrid.Admin
         private void AddIngredientControl()
         {
             Control control = LoadControl("./GridViewControls/IngredientsControl.ascx");
-            control.ID = "ingredients";
+            //control.ID = "ingredients";
             phUserControls.Controls.Add(control);
             IsIngredientsControlSet = true;
         }

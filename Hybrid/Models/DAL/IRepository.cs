@@ -35,5 +35,9 @@ namespace Hybrid.Models.DAL
         void UpdateNutrients(NutrientsPerMeal newNutrients);
         void UpdateUnits(UnitEnergy newUnitEnergy);
         IList<int> GetNumberOfMeals();
+
+        void InsertUnitOfMesurement(UnitOfMesurement unit);
+        void InsertUnitEnergy(UnitEnergy unit, int ingID);
+        void DeleteUnitEnergy(int rowID);
     }
 }

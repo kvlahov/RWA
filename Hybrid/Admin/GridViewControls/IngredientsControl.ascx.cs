@@ -13,10 +13,24 @@ namespace Hybrid.Admin.GridViewControls
     public partial class IngredientsControl : System.Web.UI.UserControl
     {
         private readonly static IRepository repo = RepoFactory.GetRepository();
+        //private void Page_Init(object sender, EventArgs e)
+        //{
+        //    if (ViewState["firstTime"] == null)
+        //    {
+        //        BindIngredinets();
+        //        TbSearch.Text = string.Empty;
+        //        ViewState["firstTime"] = false;
+        //    }
 
+        //}
         protected void Page_Load(object sender, EventArgs e)
         {
-            BindIngredinets();
+            if (ViewState["firstTime"] == null)
+            {
+                TbSearch.Text = string.Empty;
+                BindIngredinets();
+                ViewState["firstTime"] = false;
+            }
         }
 
         protected void TbSearch_TextChanged(object sender, EventArgs e)
@@ -50,7 +64,6 @@ namespace Hybrid.Admin.GridViewControls
             {
                 source = source.Where(ing => ing.Name.ToLower().StartsWith(searchValue)).ToList();
             }
-
             GwIngredients.DataSource = source;
             GwIngredients.DataBind();
 
@@ -58,16 +71,16 @@ namespace Hybrid.Admin.GridViewControls
 
         protected void GwIngredients_Sorting(object sender, GridViewSortEventArgs e)
         {
-            DataTable dtSortTable = GwIngredients.DataSource as DataTable;
-            
-            if (dtSortTable != null)
-            {
-                DataView dvSortedView = new DataView(dtSortTable);
+            //DataTable dtSortTable = GwIngredients.DataSource as DataTable;
 
-                dvSortedView.Sort = e.SortExpression + GetSortDirectionString(e.SortDirection);
-                GwIngredients.DataSource = dvSortedView;
-                GwIngredients.DataBind();
-            }
+            //if (dtSortTable != null)
+            //{
+            //    DataView dvSortedView = new DataView(dtSortTable);
+
+            //    dvSortedView.Sort = e.SortExpression + GetSortDirectionString(e.SortDirection);
+            //    GwIngredients.DataSource = dvSortedView;
+            //    GwIngredients.DataBind();
+            //}
         }
 
         private string GetSortDirectionString(SortDirection sortDirection)
@@ -106,10 +119,10 @@ namespace Hybrid.Admin.GridViewControls
         }
 
         protected void GwIngredients_RowUpdating(object sender, GridViewUpdateEventArgs e)
-        {         
+        {
             int id = Convert.ToInt32(GwIngredients.DataKeys[e.RowIndex].Value.ToString());
-            string name = ((TextBox) GwIngredients.Rows[e.RowIndex].FindControl("tbIngName")).Text.Trim();
-            
+            string name = ((TextBox)GwIngredients.Rows[e.RowIndex].FindControl("tbIngName")).Text.Trim();
+
             var ddl = (DropDownList)GwIngredients.Rows[e.RowIndex].FindControl("DdlIngredientType");
             int typeId = Convert.ToInt32(ddl.SelectedValue);
 
