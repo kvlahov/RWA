@@ -82,6 +82,7 @@ namespace Hybrid.Models.DAL
                     (
                         new UnitEnergy
                         {
+                            Id = (int)row["IDIngredientUnit"],
                             Kcal = Double.Parse(row["EnergyKcal"].ToString()),
                             Value = Double.Parse(row["Value"].ToString()),
                             Unit = unitOFMesurement
@@ -117,28 +118,13 @@ namespace Hybrid.Models.DAL
             };
         }
 
-        public IDictionary<IngredientType, int> GetAllIngredientTypes()
+        public IDictionary<string, int> GetAllIngredientTypes()
         {
             ds = SqlHelper.ExecuteDataset(cs, "getAllIngredientTypes");
-            var types = new Dictionary<IngredientType, int>();
-            IngredientType ingType = IngredientType.Other;
+            var types = new Dictionary<string, int>();
             foreach (DataRow row in ds.Tables[0].Rows)
             {
-                switch (row["Type"].ToString())
-                {
-                    case "Ugljikohidrati":
-                        ingType = IngredientType.Carbs;
-                        break;
-                    case "Proteini":
-                        ingType = IngredientType.Protein;
-                        break;
-                    case "Masti":
-                        ingType = IngredientType.Fat;
-                        break;
-                    default:
-                        break;
-                }
-                types.Add(ingType, (int)row["IDIngredientType"]);
+                types.Add(row["Type"].ToString(), (int)row["IDIngredientType"]);
             }
             return types;
         }
@@ -201,8 +187,8 @@ namespace Hybrid.Models.DAL
                 var meal = new NutrientsPerMeal();
 
                 meal.PercentCarbs = double.Parse(row["PercentageOfCarbs"].ToString());
-                meal.PercentFat = double.Parse(row["PercentageOfCarbs"].ToString());
-                meal.PercentProtein = double.Parse(row["PercentageOfCarbs"].ToString());
+                meal.PercentFat = double.Parse(row["PercentageOfFat"].ToString());
+                meal.PercentProtein = double.Parse(row["PercentageOfProtein"].ToString());
                 meal.MealId = (int)row["IDMealName"];
                 meal.MealName = row["Name"].ToString();
                 meal.OfMeals = int.Parse(row["OfMeals"].ToString());
@@ -303,6 +289,53 @@ namespace Hybrid.Models.DAL
         public void RemoveExcludedIngredients(IList<int> excludedIngredientsID, int userID)
         {
             throw new NotImplementedException();
+        }
+
+        public IList<UnitOfMesurement> GetUnitTypes()
+        {
+            return new List<UnitOfMesurement> {
+                new UnitOfMesurement{Id=1, Type="g"},
+                new UnitOfMesurement{Id=2, Type="cup"},
+                new UnitOfMesurement{Id=3, Type="ml"},
+            };
+        }
+
+        public void UpdateIngredient(Ingredient newIng)
+        {
+            SqlHelper.ExecuteNonQuery(cs, "UpdateIngredient", newIng.Id, newIng.Name, newIng.TypeId);
+        }
+
+        public void UpdateNutrients(NutrientsPerMeal newNutrients)
+        {
+            SqlHelper.ExecuteNonQuery(cs, "UpdateNutrients", 
+                newNutrients.MealId,
+                newNutrients.MealName,
+                newNutrients.PercentCarbs, 
+                newNutrients.PercentFat, 
+                newNutrients.PercentProtein, 
+                newNutrients.PercentCalorie);
+        }
+
+        public void UpdateUnits(UnitEnergy newUnitEnergy)
+        {
+            SqlHelper.ExecuteNonQuery(cs, "UpdateUnitOfMesurement",
+                newUnitEnergy.Id,
+                newUnitEnergy.Value,
+                newUnitEnergy.Unit.Id,
+                newUnitEnergy.Kcal);
+        }
+
+        public IList<int> GetNumberOfMeals()
+        {
+            ds = SqlHelper.ExecuteDataset(cs, "GetNumberOfMeals");
+            var meals = new List<int>();
+
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                meals.Add((int)row["NoOfMeals"]);
+            }
+
+            return meals;
         }
     }
 }

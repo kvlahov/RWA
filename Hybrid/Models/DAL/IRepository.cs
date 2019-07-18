@@ -16,7 +16,7 @@ namespace Hybrid.Models.DAL
         IList<UnitEnergy> GetUnitsOfMesurement(int ingredientId);
         IList<string> GetMealNames(int noOfMeals);
         Ingredient GetRandomIngredient(int typeId);
-        IDictionary<IngredientType, int> GetAllIngredientTypes();
+        IDictionary<string, int> GetAllIngredientTypes();
         bool isUserSetup(string entityID);
         IList<LevelOfActivity> GetLvlsOfActivity();
         IList<NutrientsPerMeal> GetNutrientsPerMeal(int noOfMeals);
@@ -29,5 +29,11 @@ namespace Hybrid.Models.DAL
         IList<Ingredient> GetExcludedIngredients(int userID);
         void InsertExcludedIngredients(IList<int> excludedIngredientsID, int userID);
         void RemoveExcludedIngredients(IList<int> excludedIngredientsID, int userID);
+        IList<UnitOfMesurement> GetUnitTypes();
+
+        void UpdateIngredient(Ingredient newIng);
+        void UpdateNutrients(NutrientsPerMeal newNutrients);
+        void UpdateUnits(UnitEnergy newUnitEnergy);
+        IList<int> GetNumberOfMeals();
     }
 }
