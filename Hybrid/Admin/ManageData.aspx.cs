@@ -50,11 +50,10 @@ namespace Hybrid.Admin
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if(!IsPostBack)
             {
-                Control control = LoadControl("./GridViewControls/IngredientsControl.ascx");
-                //control.ID = "ingredients";
-                phUserControls.Controls.Add(control);
+                AddIngredientControl();
+
             }
 
             if (IsUnitsControlSet)

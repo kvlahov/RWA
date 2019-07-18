@@ -23,7 +23,7 @@
         }
 
         td, tr, th {
-            vertical-align:middle !important;
+            vertical-align:middle;
         }
     </style>
 
