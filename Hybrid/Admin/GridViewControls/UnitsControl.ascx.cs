@@ -16,14 +16,14 @@ namespace Hybrid.Admin.GridViewControls
         private readonly static IRepository repo = RepoFactory.GetRepository();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
-            {
-                DdlIngredients.DataSource = repo.GetAllIngredients();
-                DdlIngredients.DataTextField = "Name";
-                DdlIngredients.DataValueField = "Id";
-                DdlIngredients.DataBind();
+            //if(!IsPostBack)
+            //{
+            //    DdlIngredients.DataSource = repo.GetAllIngredients();
+            //    DdlIngredients.DataTextField = "Name";
+            //    DdlIngredients.DataValueField = "Id";
+            //    DdlIngredients.DataBind();
 
-            }
+            //}
             DdlIngredients.DataSource = repo.GetAllIngredients();
             DdlIngredients.DataTextField = "Name";
             DdlIngredients.DataValueField = "Id";
