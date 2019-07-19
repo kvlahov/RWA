@@ -13,7 +13,7 @@
         </div>
     </div>
 </div>
-<button class="btn btn-primary" id="btnAdd">Add Unit</button>
+<%--<button class="btn btn-primary" id="btnAdd">Add Unit</button>
 <div class="row">
     <div class="col-md-8">
         <table class="table table-condensed" id="addNewUnitEnergy" style="display: none; vertical-align: middle !important;">
@@ -47,7 +47,8 @@
         </table>
 
     </div>
-</div>
+</div>--%>
+
 <asp:GridView ID="GwUnits" runat="server"
     AutoGenerateColumns="false"
     DataKeyNames="Id"
@@ -65,8 +66,8 @@
             <ItemTemplate><%# Eval("Kcal") %></ItemTemplate>
             <EditItemTemplate>
                 <asp:TextBox ID="tbKcal" runat="server" CssClass="form-control" Text='<%#Eval("Kcal") %>'></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="tbNewValue" runat="server" ErrorMessage="Required"></asp:RequiredFieldValidator>
-                <asp:RangeValidator ID="RangeValidator3" runat="server" ControlToValidate="tbNewValue" MinimumValue="0" Type="Double" ErrorMessage="Must be number greater than 0"></asp:RangeValidator>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="tbKcal" runat="server" ErrorMessage="Required"></asp:RequiredFieldValidator>
+                <asp:RangeValidator ID="RangeValidator3" runat="server" ControlToValidate="tbKcal" MinimumValue="0" Type="Double" ErrorMessage="Must be number greater than 0"></asp:RangeValidator>
             </EditItemTemplate>
         </asp:TemplateField>
 
@@ -74,8 +75,8 @@
             <ItemTemplate><%# Eval("Value") %></ItemTemplate>
             <EditItemTemplate>
                 <asp:TextBox ID="tbValue" runat="server" CssClass="form-control" Text='<%#Eval("Value") %>'></asp:TextBox>
-                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="tbNewValue" runat="server" ErrorMessage="Required"></asp:RequiredFieldValidator>
-                <asp:RangeValidator ID="RangeValidator4" runat="server" ControlToValidate="tbNewValue" MinimumValue="0" Type="Double" ErrorMessage="Must be number greater than 0"></asp:RangeValidator>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="tbValue" runat="server" ErrorMessage="Required"></asp:RequiredFieldValidator>
+                <asp:RangeValidator ID="RangeValidator4" runat="server" ControlToValidate="tbValue" MinimumValue="0" Type="Double" ErrorMessage="Must be number greater than 0"></asp:RangeValidator>
             </EditItemTemplate>
         </asp:TemplateField>
 

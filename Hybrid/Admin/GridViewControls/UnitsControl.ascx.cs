@@ -29,10 +29,10 @@ namespace Hybrid.Admin.GridViewControls
             DdlIngredients.DataValueField = "Id";
             DdlIngredients.DataBind();
 
-            ddlNewUnit.DataSource = repo.GetUnitTypes();
-            ddlNewUnit.DataTextField = "Type";
-            ddlNewUnit.DataValueField = "Id";
-            ddlNewUnit.DataBind();
+            //ddlNewUnit.DataSource = repo.GetUnitTypes();
+            //ddlNewUnit.DataTextField = "Type";
+            //ddlNewUnit.DataValueField = "Id";
+            //ddlNewUnit.DataBind();
 
             BindUnits();
 
@@ -124,21 +124,21 @@ namespace Hybrid.Admin.GridViewControls
             }
         }
 
-        protected void btnCreate_Click(object sender, EventArgs e)
-        {
-            int ingId = Convert.ToInt32(DdlIngredients.SelectedValue);
-            var unit = new UnitEnergy
-            {
-                Kcal = Convert.ToDouble(tbNewKcal.Text),
-                Value = Convert.ToDouble(tbNewValue.Text),
-                Unit = new UnitOfMesurement
-                {
-                    Id = Convert.ToInt32(ddlNewUnit.SelectedValue),
-                    Type = ddlNewUnit.SelectedItem.Text
-                }
-            };
-            repo.InsertUnitEnergy(unit, ingId);
-            BindUnits();
-        }
+        //protected void btnCreate_Click(object sender, EventArgs e)
+        //{
+        //    int ingId = Convert.ToInt32(DdlIngredients.SelectedValue);
+        //    var unit = new UnitEnergy
+        //    {
+        //        Kcal = Convert.ToDouble(tbNewKcal.Text),
+        //        Value = Convert.ToDouble(tbNewValue.Text),
+        //        Unit = new UnitOfMesurement
+        //        {
+        //            Id = Convert.ToInt32(ddlNewUnit.SelectedValue),
+        //            Type = ddlNewUnit.SelectedItem.Text
+        //        }
+        //    };
+        //    repo.InsertUnitEnergy(unit, ingId);
+        //    BindUnits();
+        //}
     }
 }
