@@ -5,16 +5,17 @@
     ViewBag.Title = "Home";
     var name = ViewBag.userName;
     var hasMenu = Model != null;
+    var menuForToday = Model != null ? Model.Contains(DateTime.Now) : false;
 }
 
 <h2>Welcome, @name!</h2>
 
-@if (!hasMenu)
+@if (!menuForToday)
 {
     <p>You do not have any menus generated for today</p>
     @Html.ActionLink("Generate", "Generate", "Menu", null, new { @class = "btn btn-primary" })
 }
-else
+@if(hasMenu)
 {
     <div class="form-horizontal">
     <div class="row">

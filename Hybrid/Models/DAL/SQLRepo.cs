@@ -33,7 +33,10 @@ namespace Hybrid.Models.DAL
 
         public void InsertIngredient(Ingredient ingredient)
         {
-            throw new NotImplementedException();
+            SqlHelper.ExecuteNonQuery(cs, "insertIngredient", 
+                ingredient.Name,
+                ingredient.TypeId
+            );
         }
 
         public Ingredient GetIngredient(int id)
@@ -336,6 +339,50 @@ namespace Hybrid.Models.DAL
             }
 
             return meals;
+        }
+
+        public void InsertUnitOfMesurement(UnitOfMesurement unit)
+        {
+            SqlHelper.ExecuteNonQuery(cs, "insertUnitOfMesurement", unit.Type);
+        }
+
+        public void InsertUnitEnergy(UnitEnergy unit, int ingID)
+        {
+            SqlHelper.ExecuteNonQuery(cs, "insertUnitOfMesurementForIngredient", 
+                unit.Value,
+                ingID,
+                unit.Unit.Id,
+                unit.Kcal
+                );
+        }
+
+        public void DeleteUnitEnergy(int rowID)
+        {
+            SqlHelper.ExecuteNonQuery(cs, "DeleteIngredientUnit", rowID);
+        }
+
+        public IList<User> GetAllUsers()
+        {
+            ds = SqlHelper.ExecuteDataset(cs, "GetAllUsers");
+            var users = new List<User>();
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                User u = new User();
+                u.Id = (int)row["IDUser"];
+                u.EntityID = row["CredentialsID"].ToString();
+                u.Name = row["Name"].ToString();
+                u.Surname = row["Surname"].ToString();
+                u.Height = float.Parse(row["HeightCm"].ToString());
+                u.Weight = float.Parse(row["WightKg"].ToString());
+                u.Sex = char.Parse(row["Sex"].ToString());
+                u.DateOFBirth = DateTime.Parse(row["DateOfBirth"].ToString());
+                u.LevelOfActivityID = (int)row["LevelOfActivityID"];
+                u.DiabetesType = int.Parse(row["DiabetesType"].ToString());
+
+                users.Add(u);
+            }
+
+            return users;
         }
     }
 }

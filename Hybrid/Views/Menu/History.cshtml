@@ -1,0 +1,52 @@
+﻿@using Hybrid.Models
+@model List<DateTime>
+
+@{
+    ViewBag.Title = "Home";
+    var name = ViewBag.userName;
+    var hasMenu = Model != null;
+}
+
+<h2>History</h2>
+
+<div class="form-horizontal">
+    <div class="row">
+        <div class="col-md-8 ">
+            <div class="form-group">
+                <label for="datepicker" class="col-sm-2 control-label">Pick a date</label>
+                <div class="col-sm-9">
+                    <select class="form-control" onchange="showMenuAjax(this.value)">
+                        @foreach (var date in Model)
+                        {
+                            <option value="@date">@date.ToShortDateString()</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Partial("_Loader")
+
+<div id="menu">
+</div>
+
+@section scripts {
+<script>
+    function showMenuAjax(value) {
+        console.log(value)
+        $('#menu').hide();
+        $.ajax({
+            url: '@Url.Action("ShowMenu")',
+            method: 'GET',
+            cache: false,
+            dataType: 'html',
+            data: { day: value},
+            success: function (partialView) {
+                $("#menu").html(partialView).fadeIn(800);
+            }
+        })
+    }
+
+</script>
+}

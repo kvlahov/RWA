@@ -1,6 +1,8 @@
 ﻿using Hybrid.Models.DAL;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -39,6 +41,7 @@ namespace Hybrid.Admin.GridViewControls
         protected void GwMeals_RowEditing(object sender, GridViewEditEventArgs e)
         {
             GwMeals.EditIndex = e.NewEditIndex;
+            Page.Validate();
             BindMeals();
         }
 
@@ -71,6 +74,15 @@ namespace Hybrid.Admin.GridViewControls
 
             GwMeals.EditIndex = -1;
             BindMeals();
+        }
+
+        protected void BtnEditCalories_Click(object sender, EventArgs e)
+        {
+        }
+
+        protected void GW_EditCalories_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Hybrid.Models.DAL;
+﻿using Hybrid.Models;
+using Hybrid.Models.DAL;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -28,7 +29,14 @@ namespace Hybrid.Admin.GridViewControls
             DdlIngredients.DataValueField = "Id";
             DdlIngredients.DataBind();
 
+            //ddlNewUnit.DataSource = repo.GetUnitTypes();
+            //ddlNewUnit.DataTextField = "Type";
+            //ddlNewUnit.DataValueField = "Id";
+            //ddlNewUnit.DataBind();
+
             BindUnits();
+
+
         }
 
         protected void DdlIngredients_SelectedIndexChanged(object sender, EventArgs e)
@@ -99,5 +107,38 @@ namespace Hybrid.Admin.GridViewControls
             GwUnits.EditIndex = -1;
             BindUnits();
         }
+
+        protected void GwUnits_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            int id = Convert.ToInt32(GwUnits.DataKeys[e.RowIndex].Value.ToString());
+            repo.DeleteUnitEnergy(id);
+            BindUnits();
+        }
+
+        protected void GwUnits_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if(e.CommandName == "Delete")
+            {
+                int id = Convert.ToInt32(e.CommandArgument);
+                repo.DeleteUnitEnergy(id);
+            }
+        }
+
+        //protected void btnCreate_Click(object sender, EventArgs e)
+        //{
+        //    int ingId = Convert.ToInt32(DdlIngredients.SelectedValue);
+        //    var unit = new UnitEnergy
+        //    {
+        //        Kcal = Convert.ToDouble(tbNewKcal.Text),
+        //        Value = Convert.ToDouble(tbNewValue.Text),
+        //        Unit = new UnitOfMesurement
+        //        {
+        //            Id = Convert.ToInt32(ddlNewUnit.SelectedValue),
+        //            Type = ddlNewUnit.SelectedItem.Text
+        //        }
+        //    };
+        //    repo.InsertUnitEnergy(unit, ingId);
+        //    BindUnits();
+        //}
     }
 }
