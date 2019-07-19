@@ -22,46 +22,12 @@ namespace Hybrid.Admin.GridViewControls
                 DdlNoOfMeals.DataBind();
                 BindMeals();
                 ViewState["firstTime"] = false;
-                BindCalories();
             }
-        }
-
-        private void BindCalories()
-        {
-            var noOfMeals = Convert.ToInt32(DdlNoOfMeals.SelectedValue);
-            var npm = repo.GetNutrientsPerMeal(noOfMeals);
-
-            DataTable dt = new DataTable();
-            foreach (var meal in npm)
-            {
-                dt.Columns.Add(meal.MealName, typeof(string));
-            }
-
-            DataRow dr = dt.NewRow();
-
-            foreach (var meal in npm)
-            {
-                dr[meal.MealName] = meal.PercentCalorie;
-            }
-            dt.Rows.Add(dr);
-
-            DataRow drId = dt.NewRow();
-
-            foreach (var meal in npm)
-            {
-                drId[meal.MealName] = meal.MealId;
-            }
-            dt.Rows.Add(drId);
-            GW_EditCalories.DataSource = dt;
-
-            GW_EditCalories.DataBind();
-
         }
 
         protected void DdlNoOfMeals_SelectedIndexChanged(object sender, EventArgs e)
         {
             BindMeals();
-            BindCalories();
         }
 
         private void BindMeals()
@@ -117,19 +83,6 @@ namespace Hybrid.Admin.GridViewControls
         protected void GW_EditCalories_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             
-        }
-
-        protected void GW_EditCalories_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
-        {
-            GW_EditCalories.EditIndex = -1;
-            BindCalories();
-        }
-
-        protected void GW_EditCalories_RowEditing(object sender, GridViewEditEventArgs e)
-        {
-            GW_EditCalories.EditIndex = e.NewEditIndex;
-            BindCalories();
-
         }
     }
 }

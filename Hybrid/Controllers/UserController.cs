@@ -21,6 +21,20 @@ namespace Hybrid.Controllers
             var user = repo.GetUser(User.Identity.GetUserId());
             var dates = repo.GetDatesForMenus(user.Id).Where(date => date.Date >= DateTime.Today).ToList();
 
+            if (dates != null)
+            {
+                dates.Sort();
+
+                if (!dates.Contains(DateTime.Today))
+                {
+                    ViewBag.containsToday = false;
+                }
+                else
+                {
+                    ViewBag.containsToday = true;
+                }
+            }
+
             ViewBag.userName = user.Name;
             return View(dates);
         }
@@ -64,7 +78,7 @@ namespace Hybrid.Controllers
 
         public ActionResult UserInfo(bool? showModal)
         {
-            if(showModal != null)
+            if (showModal != null)
             {
                 TempData["showModal"] = showModal;
             }

@@ -146,5 +146,24 @@ namespace Hybrid.Controllers
             }
             return RedirectToAction("Index", "User");
         }
+
+        public ActionResult History()
+        {
+            var user = repo.GetUser(User.Identity.GetUserId());
+            var dates = repo.GetDatesForMenus(user.Id).Where(date => date.Date <= DateTime.Today).ToList();
+            dates.Sort();
+            return View(dates);
+        }
+
+        public ActionResult ShowMenu(DateTime day)
+        {
+            DateTime date = day;
+
+            var user = repo.GetUser(User.Identity.GetUserId());
+            var menu = repo.GetMenu(date, user.Id);
+
+            ViewBag.userCalories = user.GetCalorieIntake();
+            return PartialView("~/Views/Shared/_Menu.cshtml", menu);
+        }
     }
 }

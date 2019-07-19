@@ -112,6 +112,7 @@ namespace Hybrid.Admin.GridViewControls
         {
             int id = Convert.ToInt32(GwUnits.DataKeys[e.RowIndex].Value.ToString());
             repo.DeleteUnitEnergy(id);
+            BindUnits();
         }
 
         protected void GwUnits_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -137,6 +138,7 @@ namespace Hybrid.Admin.GridViewControls
                 }
             };
             repo.InsertUnitEnergy(unit, ingId);
+            BindUnits();
         }
     }
 }

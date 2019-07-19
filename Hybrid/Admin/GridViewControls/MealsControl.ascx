@@ -78,7 +78,7 @@
             ItemStyle-Width="150" />
     </Columns>
 </asp:GridView>
-<asp:Button ID="BtnEditCalories" runat="server" Text="Button" OnClick="BtnEditCalories_Click" />
+<%--<asp:Button ID="BtnEditCalories" runat="server" Text="Button" OnClick="BtnEditCalories_Click" />
 <div class="row">
     <div class="col-md-6">
         <asp:GridView ID="GW_EditCalories" runat="server" 
@@ -89,7 +89,7 @@
             OnRowUpdating="GW_EditCalories_RowUpdating" AutoGenerateEditButton="true">
         </asp:GridView>
     </div>
-</div>
+</div>--%>
 
 <script>
     function validatePercents(source, args) {

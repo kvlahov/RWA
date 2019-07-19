@@ -1,0 +1,55 @@
+﻿@using Hybrid.Models
+
+@model MenuViewModel
+
+@{
+    var userCalories = Convert.ToDouble(ViewBag.userCalories);
+}
+
+<style>
+    tr {
+        transition: background-color .4s ease;
+        height: auto;
+    }
+
+    td {
+        height: 45px;
+    }
+
+    tr.highlight {
+        background-color: #abdb81;
+        font-weight: bold;
+    }
+    .unit-of-mesurement {
+        height: 100%;
+    }
+    .td-units {
+        padding:0 !important;
+    }
+</style>
+
+<h4>Target calories: <span class="label label-info">@userCalories</span></h4>
+<div class="table-responsive">
+    <table class="table table-bordered table-condensed">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Meal</th>
+                <th scope="col">Ingredient</th>
+                <th scope="col">Type</th>
+                <th scope="col">Unit of Mesurement</th>
+            </tr>
+        </thead>
+        @for (int i = 0; i < Model.Meals.Count; i++)
+        {
+            ViewBag.counter = i;
+            <tbody>
+                @Html.DisplayFor(m => m.Meals[i])
+            </tbody>
+        }
+
+    </table>
+</div>
+<script>
+    $(':checkbox').hide();
+</script>

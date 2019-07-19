@@ -29,23 +29,5 @@ namespace Hybrid.Admin.GridViewControls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GwMeals;
-        
-        /// <summary>
-        /// BtnEditCalories control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnEditCalories;
-        
-        /// <summary>
-        /// GW_EditCalories control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GW_EditCalories;
     }
 }

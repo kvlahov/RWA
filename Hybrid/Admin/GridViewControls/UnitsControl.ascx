@@ -13,27 +13,41 @@
         </div>
     </div>
 </div>
-<button class="btn btn-primary" onclick="$('#addNewUnitEnergy').toggle()"></button>
-<table class="table" id="addNewUnitEnergy" style="display:none;">
-    <tr>
-    </tr>
-    <tr>
-        <asp:TextBox ID="tbNewKcal" runat="server" CssClass="form-control" Text=""></asp:TextBox>
-        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="tbNewKcal" runat="server" ErrorMessage="Required"></asp:RequiredFieldValidator>
-        <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="tbNewKcal" MinimumValue="0" Type="Double" ErrorMessage="Must be number greater than 0"></asp:RangeValidator>
-    </tr>
-    <tr>
-        <asp:TextBox ID="tbNewValue" runat="server" CssClass="form-control" Text=""></asp:TextBox>
-        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="tbNewValue" runat="server" ErrorMessage="Required"></asp:RequiredFieldValidator>
-        <asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="tbNewValue" MinimumValue="0" Type="Double" ErrorMessage="Must be number greater than 0"></asp:RangeValidator>
-    </tr>
-    <tr>
-        <asp:DropDownList ID="ddlNewUnit" runat="server" CssClass="form-control"></asp:DropDownList>
-    </tr>
-    <tr>
-        <asp:Button ID="btnCreate" Text="Create" CausesValidation="true" OnClick="btnCreate_Click"  runat="server"/>
-    </tr>
-</table>
+<button class="btn btn-primary" id="btnAdd">Add Unit</button>
+<div class="row">
+    <div class="col-md-8">
+        <table class="table table-condensed" id="addNewUnitEnergy" style="display: none; vertical-align: middle !important;">
+            <tbody>
+                <tr>
+                    <td>
+                        <asp:TextBox ID="tbNewKcal" runat="server" CssClass="form-control" Text=""></asp:TextBox>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="tbNewValue" runat="server" CssClass="form-control" Text=""></asp:TextBox>
+                        
+                    </td>
+                    <td>
+                        <asp:DropDownList ID="ddlNewUnit" runat="server" CssClass="form-control"></asp:DropDownList>
+
+                    </td>
+                    <td>
+                        <asp:Button ID="btnCreate" Text="Create" CausesValidation="true" OnClick="btnCreate_Click" runat="server" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="tbNewKcal" runat="server" ErrorMessage="Required"></asp:RequiredFieldValidator>
+                        <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="tbNewKcal" MinimumValue="0" Type="Double" ErrorMessage="Must be number greater than 0"></asp:RangeValidator></td>
+                    <td>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="tbNewValue" runat="server" ErrorMessage="Required"></asp:RequiredFieldValidator>
+                        <asp:RangeValidator ID="RangeValidator2" runat="server" ControlToValidate="tbNewValue" MinimumValue="0" Type="Double" ErrorMessage="Must be number greater than 0"></asp:RangeValidator>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
 <asp:GridView ID="GwUnits" runat="server"
     AutoGenerateColumns="false"
     DataKeyNames="Id"
@@ -52,7 +66,7 @@
             <EditItemTemplate>
                 <asp:TextBox ID="tbKcal" runat="server" CssClass="form-control" Text='<%#Eval("Kcal") %>'></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="tbNewValue" runat="server" ErrorMessage="Required"></asp:RequiredFieldValidator>
-        <asp:RangeValidator ID="RangeValidator3" runat="server" ControlToValidate="tbNewValue" MinimumValue="0" Type="Double" ErrorMessage="Must be number greater than 0"></asp:RangeValidator>
+                <asp:RangeValidator ID="RangeValidator3" runat="server" ControlToValidate="tbNewValue" MinimumValue="0" Type="Double" ErrorMessage="Must be number greater than 0"></asp:RangeValidator>
             </EditItemTemplate>
         </asp:TemplateField>
 
@@ -61,7 +75,7 @@
             <EditItemTemplate>
                 <asp:TextBox ID="tbValue" runat="server" CssClass="form-control" Text='<%#Eval("Value") %>'></asp:TextBox>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="tbNewValue" runat="server" ErrorMessage="Required"></asp:RequiredFieldValidator>
-        <asp:RangeValidator ID="RangeValidator4" runat="server" ControlToValidate="tbNewValue" MinimumValue="0" Type="Double" ErrorMessage="Must be number greater than 0"></asp:RangeValidator>
+                <asp:RangeValidator ID="RangeValidator4" runat="server" ControlToValidate="tbNewValue" MinimumValue="0" Type="Double" ErrorMessage="Must be number greater than 0"></asp:RangeValidator>
             </EditItemTemplate>
         </asp:TemplateField>
 
@@ -89,3 +103,9 @@
 </asp:GridView>
 
 
+<script>
+    $('#btnAdd').click(function (e) {
+        e.preventDefault();
+        $('#addNewUnitEnergy').toggle();
+    });
+</script>

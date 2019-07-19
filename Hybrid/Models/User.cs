@@ -29,6 +29,12 @@ namespace Hybrid.Models
         [Display(Name = "Diabetes Type")]
         public int DiabetesType { get; set; }
 
+        public string FullName {
+            get {
+                return Name + " " + Surname;
+            }
+        }
+
         public double GetCalorieIntake()
         {
             double fDType, fSex, fActivity;

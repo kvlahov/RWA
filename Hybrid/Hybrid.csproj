@@ -618,6 +618,8 @@
     <Content Include="Views\Shared\_ExcludeModal.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
     <Content Include="Views\Shared\_IngredientAccordion.cshtml" />
+    <Content Include="Views\Menu\History.cshtml" />
+    <Content Include="Views\Shared\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
