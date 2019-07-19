@@ -202,6 +202,13 @@
     <Compile Include="Admin\ManageData.aspx.designer.cs">
       <DependentUpon>ManageData.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\ManageUsers.aspx.cs">
+      <DependentUpon>ManageUsers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageUsers.aspx.designer.cs">
+      <DependentUpon>ManageUsers.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -417,6 +424,7 @@
     <Content Include="Admin\GridViewControls\MealsControl.ascx" />
     <Content Include="Admin\GridViewControls\UnitsControl.ascx" />
     <Content Include="Admin\ManageData.aspx" />
+    <Content Include="Admin\ManageUsers.aspx" />
     <Content Include="Content\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-datepicker.min.css" />
     <Content Include="Content\bootstrap-datepicker.standalone.css" />
